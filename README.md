@@ -1,2 +1,3 @@
-# CS387-Lab-4
-Lab 4, Database and Information Systems, Spring 2022, IIT Bombay
+# CS387 Lab 4
+Given on: 25/01/2022, 14:00  
+Due on: Saturday, 05/02/2022, 23:59
