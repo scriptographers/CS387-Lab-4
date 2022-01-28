@@ -1,3 +1,4 @@
 # CS387 Lab 4
+PS: [Link](https://docs.google.com/document/d/e/2PACX-1vRthLY0CwcAEnpa0z9IQp3Rf67lBZ-suCrdyZeElJkcMYcmvkeAnM-lU__8EOIxR3Wp0p8HN8xofj6r/pub)  
 Given on: 25/01/2022, 14:00  
 Due on: Saturday, 05/02/2022, 23:59
