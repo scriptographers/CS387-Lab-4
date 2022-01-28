@@ -4,6 +4,8 @@ const cors = require("cors");
 
 const app = express();
 
+const db = require("./db");
+
 var corsOptions = {
   origin: "http://localhost:4200"
 };
@@ -21,6 +23,8 @@ app.get("/", (req, res) => {
   console.log(req.query); // Try /?skip=0&limit=10
   res.json({ message: "Backend works" });
 });
+
+app.get("/match_list", db.match_list);
 
 // set port as 4000 and listen for requests
 app.listen(4000, () => {
