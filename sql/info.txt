@@ -1,0 +1,25 @@
+- Section B
+    - match_list
+    - for each match:
+        - scorecard
+            - batting
+            - bowling
+            - match_info
+                - toss and venue
+                - umpires
+                - playing xi's
+        - score comparison (for each innings - runs per over, whether a wicket was taken in the over)
+        - summary 
+            - top 3 batsmen, bowlers
+            - % of runs in fours, sixes, 1s, 2s and extras
+- Section C
+    - player bio
+    - player batting stats 
+        - may require 2 queries for aggr info
+        - runs per match
+    - player bowling stats
+        - similar to batting stats
+- Section D
+    - points table (may require 2 queries)
+
+
