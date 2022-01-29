@@ -11,7 +11,7 @@ FROM match
 LEFT OUTER JOIN venue ON match.venue_id = venue.venue_id
 LEFT OUTER JOIN team AS t1 ON match.team1 = t1.team_id
 LEFT OUTER JOIN team AS t2 ON match.team2 = t2.team_id
-ORDER BY season_year LIMIT $1 OFFSET $2;
+ORDER BY season_year, match_id LIMIT $1 OFFSET $2;
 `;
 
 module.exports = { match_list };

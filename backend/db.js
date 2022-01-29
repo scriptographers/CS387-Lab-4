@@ -2,10 +2,10 @@ const pool = require('./pool');
 const queries = require('./queries');
 
 const match_list = (req, res) => {
-  limit = req.query['limit'] ? parseInt(req.query['limit']) : 10;
-  skip = req.query['skip'] ? parseInt(req.query['skip']) : 0;
+  size = req.query['size'] ? parseInt(req.query['size']) : 10;
+  offset = req.query['offset'] ? parseInt(req.query['offset']) : 0;
 
-  pool.query(queries.match_list, [limit, skip * limit], (error, results) => {
+  pool.query(queries.match_list, [size, offset], (error, results) => {
     if (error) {
       throw error
     }
