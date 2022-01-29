@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+import { MatchesComponent } from './matches/matches.component';
+
+// Specifies the route-component mapping
+const routes: Routes = [
+  { path: 'matches', component: MatchesComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

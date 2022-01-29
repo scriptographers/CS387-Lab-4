@@ -6,13 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
+import { MatchesComponent } from './matches/matches.component';
 
 // Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MatchesComponent
   ],
   imports: [
     BrowserModule,
