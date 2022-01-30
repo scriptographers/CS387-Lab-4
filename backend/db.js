@@ -1,16 +1,46 @@
 const pool = require('./pool');
-const queries = require('./queries');
+const query = require('./query');
 
-const match_list = (req, res) => {
-  size = req.query['size'] ? parseInt(req.query['size']) : 10;
-  offset = req.query['offset'] ? parseInt(req.query['offset']) : 0;
+const handler = (res, error, results) => {
+  if (error) {
+    res.status(400).send({
+      message: error
+    })
+  }
+  else {
+    res.status(200).json(results.rows);
+  }
+}
 
-  pool.query(queries.match_list, [size, offset], (error, results) => {
-    if (error) {
-      throw error
-    }
-    res.status(200).json(results.rows)
-  })
+const match = {
+  match_list: (req, res) => {
+    size = req.query['size'] ? parseInt(req.query['size']) : 10;
+    offset = req.query['offset'] ? parseInt(req.query['offset']) : 0;
+    pool.query(query.match.match_list, [size, offset], handler.bind(null, res));
+  },
+
+  match_info: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    pool.query(query.match.match_info, [match_id], handler.bind(null, res));
+  },
+
+  match_players: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    team_id = req.query['team_id'] ? parseInt(req.query['match_id']) : 0;
+    pool.query(query.match.match_players, [match_id, team_id], handler.bind(null, res));
+  },
+
+  match_umpires: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    pool.query(query.match.match_umpires, [match_id], handler.bind(null, res));
+  },
+
+  match_result: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    pool.query(query.match.match_result, [match_id], handler.bind(null, res));
+  }
+}
+
+module.exports = {
+  match
 };
-
-module.exports = { match_list };
