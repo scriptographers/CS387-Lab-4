@@ -7,5 +7,5 @@ from
 match left outer join venue on match.venue_id = venue.venue_id
 left outer join team as t1 on match.team1 = t1.team_id
 left outer join team as t2 on match.team2 = t2.team_id
-order by season_year asc, match_id asc
+order by season_year desc, match_id asc
 limit 10 offset 0; -- replace 0 by 10*$1 later
