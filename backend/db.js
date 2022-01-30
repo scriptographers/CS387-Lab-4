@@ -26,7 +26,7 @@ const match = {
 
   match_players: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    team_id = req.query['team_id'] ? parseInt(req.query['match_id']) : 0;
+    team_id = req.query['team_id'] ? parseInt(req.query['team_id']) : 0;
     pool.query(query.match.match_players, [match_id, team_id], handler.bind(null, res));
   },
 
@@ -41,6 +41,51 @@ const match = {
   }
 }
 
+const innings = {
+  batting: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.batting, [match_id, innings_id], handler.bind(null, res));
+  },
+
+  bowling: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.bowling, [match_id, innings_id], handler.bind(null, res));
+  },
+
+  extras: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.extras, [match_id, innings_id], handler.bind(null, res));
+  },
+
+  overs_breakup: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.overs_breakup, [match_id, innings_id], handler.bind(null, res));
+  },
+
+  top3_bat: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.top3_bat, [match_id, innings_id], handler.bind(null, res));
+  },
+
+  top3_bowl: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.top3_bowl, [match_id, innings_id], handler.bind(null, res));
+  },
+
+  runs_breakup: (req, res) => {
+    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
+    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
+    pool.query(query.innings.runs_breakup, [match_id, innings_id], handler.bind(null, res));
+  }
+}
+
 module.exports = {
-  match
+  match,
+  innings
 };

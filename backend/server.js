@@ -30,6 +30,14 @@ app.get("/match/match_players", db.match.match_players);
 app.get("/match/match_umpires", db.match.match_umpires);
 app.get("/match/match_result", db.match.match_result);
 
+app.get("/innings/batting", db.innings.batting);
+app.get("/innings/bowling", db.innings.bowling);
+app.get("/innings/extras", db.innings.extras);
+app.get("/innings/overs_breakup", db.innings.overs_breakup);
+app.get("/innings/top3_bat", db.innings.top3_bat);
+app.get("/innings/top3_bowl", db.innings.top3_bowl);
+app.get("/innings/runs_breakup", db.innings.runs_breakup);
+
 // set port as 4000 and listen for requests
 app.listen(4000, () => {
   console.log(`Server is running on http://localhost:4000`);
