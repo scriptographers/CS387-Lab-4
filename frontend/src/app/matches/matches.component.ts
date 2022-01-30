@@ -19,7 +19,7 @@ export class MatchesComponent implements OnInit {
     private route: ActivatedRoute,
     private server: ServerService
   ) {
-    this.route.paramMap.subscribe(params => {
+    this.route.queryParamMap.subscribe(params => {
       this.page = params.get('page') ? parseInt(params.get('page') as string) : 1;
       this.page_size = params.get('size') ? parseInt(params.get('size') as string) : 10;
       this.offset = (this.page - 1) * this.page_size;
