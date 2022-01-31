@@ -30,7 +30,7 @@ export class MatchesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.server.get(`/match_list/?size=${this.page_size}&offset=${this.offset}`).subscribe(
+    this.server.get('/match/match_list', { 'size': this.page_size, 'offset': this.offset }).subscribe(
       res => {
         this.matches = res;
         console.log(this.matches);
