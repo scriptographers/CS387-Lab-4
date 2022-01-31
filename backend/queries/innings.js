@@ -1,6 +1,7 @@
 // Scorecard data
 const batting = `
-SELECT player_name AS batter,
+SELECT player_id,
+  player_name AS batter,
   runs,
   fours,
   sixes,
@@ -20,7 +21,8 @@ ORDER BY player_name;
 `;
 
 const bowling = `
-SELECT player_name AS bowler,
+SELECT player_id,
+  player_name AS bowler,
   balls_bowled,
   runs_given,
   wickets
@@ -28,7 +30,7 @@ FROM (
   SELECT bowler,
     sum(runs_scored + extra_runs) AS runs_given,
     count(ball_id) AS balls_bowled,
-    count(CASE WHEN (out_type NOT IN ('retired hurt', 'run out') AND (out_type IS NOT NULL) THEN 1 ELSE NULL END) AS wickets
+    count(CASE WHEN (out_type NOT IN ('retired hurt', 'run out')) AND (out_type IS NOT NULL) THEN 1 ELSE NULL END) AS wickets
   FROM ball_by_ball
   WHERE match_id = $1 AND innings_no = $2
   GROUP BY bowler
@@ -57,7 +59,10 @@ ORDER BY over_id;
 
 // Match summary data
 const top3_bat = `
-SELECT player_name
+SELECT player_id,
+  player_name,
+  runs,
+  balls
 FROM (
   SELECT striker, sum(runs_scored) AS runs, count(ball_id) AS balls
     FROM ball_by_ball
@@ -71,13 +76,14 @@ LIMIT 3;
 `;
 
 const top3_bowl = `
-SELECT player_name,
+SELECT player_id,
+  player_name,
   wickets,
   runs_given
 FROM (
   SELECT bowler,
     sum(runs_scored + extra_runs) AS runs_given,
-    count(CASE WHEN (out_type NOT IN ('retired hurt', 'run out') AND (out_type IS NOT NULL) THEN 1 ELSE NULL END) AS wickets
+    count(CASE WHEN (out_type NOT IN ('retired hurt', 'run out')) AND (out_type IS NOT NULL) THEN 1 ELSE NULL END) AS wickets
   FROM ball_by_ball
   WHERE match_id = $1 AND innings_no = $2
   GROUP BY bowler

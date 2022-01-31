@@ -34,11 +34,6 @@ const match = {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
     pool.query(query.match.match_umpires, [match_id], handler.bind(null, res));
   },
-
-  match_result: (req, res) => {
-    match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    pool.query(query.match.match_result, [match_id], handler.bind(null, res));
-  }
 }
 
 const innings = {

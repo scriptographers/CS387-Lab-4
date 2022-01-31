@@ -23,16 +23,20 @@ LIMIT $1 OFFSET $2;
 const match_info = `
 SELECT match_id,
   venue_name,
+  season_year,
+  team1 AS team1_id,
+  team2 AS team2_id,
   t1.team_name AS team1_name,
   t2.team_name AS team2_name,
-  season_year,
-  t3.team_name AS toss_winner_name,
-  toss_name
+  toss_winner AS toss_winner_id,
+  toss_name,
+  match_winner AS winner_id,
+  win_type,
+  win_margin
 FROM match
 LEFT OUTER JOIN venue ON match.venue_id = venue.venue_id
 LEFT OUTER JOIN team AS t1 ON match.team1 = t1.team_id
 LEFT OUTER JOIN team AS t2 ON match.team2 = t2.team_id
-LEFT OUTER JOIN team AS t3 ON match.toss_winner = t3.team_id
 WHERE match_id = $1;
 `;
 
@@ -52,19 +56,9 @@ WHERE match_id = $1
 ORDER BY umpire_name;
 `;
 
-const match_result = `
-SELECT team_name,
-  win_type,
-  win_margin
-FROM match
-LEFT OUTER JOIN team ON match_winner = team_id
-WHERE match_id = $1;
-`;
-
 module.exports = {
   match_list,
   match_info,
   match_players,
   match_umpires,
-  match_result
 }

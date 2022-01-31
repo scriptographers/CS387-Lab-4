@@ -28,7 +28,6 @@ app.get("/match/match_list", db.match.match_list);
 app.get("/match/match_info", db.match.match_info);
 app.get("/match/match_players", db.match.match_players);
 app.get("/match/match_umpires", db.match.match_umpires);
-app.get("/match/match_result", db.match.match_result);
 
 app.get("/innings/batting", db.innings.batting);
 app.get("/innings/bowling", db.innings.bowling);
