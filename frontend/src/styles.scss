@@ -25,7 +25,7 @@ table {
   width: 90%;
   padding: 1em;
   margin: auto;
-  margin-top: 2em;
+  margin-top: 1em;
   margin-bottom: 1em;
 }
 
@@ -38,7 +38,17 @@ mat-paginator{
   width: 90%;
 }
 
-.mat-row:hover {
-  background-color: #EEE;
-  cursor: pointer;
+div{
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+}
+
+mat-list{
+  margin-top: 1em !important;
+  margin-bottom: 1em !important;
+}
+
+mat-list-item{
+  background-color: #fff;
 }

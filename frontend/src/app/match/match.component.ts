@@ -13,6 +13,8 @@ export class MatchComponent implements OnInit {
   first: any;
   second: any;
   match_info: any;
+  displayedColumnsBat: any;
+  displayedColumnsBowl: any;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -48,6 +50,10 @@ export class MatchComponent implements OnInit {
       players2: [],
       umpires: [],
     }
+
+    this.displayedColumnsBat = ['batsman', 'runs', 'fours', 'sixes', 'balls_faced'];
+    this.displayedColumnsBowl = ['bowler', 'balls', 'runs', 'wickets'];
+
   }
 
   ngOnInit(): void {
