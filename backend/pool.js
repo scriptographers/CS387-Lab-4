@@ -1,5 +1,5 @@
 const Pool = require('pg').Pool;
-const dotenv = require('dotenv').config();
+const dotenv = require('dotenv').config({ path: require('find-config')('.env') });
 
 const pool = new Pool({
   user: process.env.DB_USER,
