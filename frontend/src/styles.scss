@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
+// @import '@angular/material/prebuilt-themes/indigo-pink.css';
+
 html,
 body {
   height: 100%;
@@ -10,12 +12,33 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-$colors : #e4d8f0 1/20*100%,
-#cfc3e4 2/20*100%;
+$colors : #e4d8f0 1/20*100%, #cfc3e4 2/20*100%;
 
 body {
   background:
     repeating-radial-gradient(circle at bottom left, $colors),
     repeating-radial-gradient(circle at bottom right, $colors);
   background-blend-mode: overlay;
+}
+
+table {
+  width: 90%;
+  padding: 1em;
+  margin: auto;
+  margin-top: 2em;
+  margin-bottom: 1em;
+}
+
+.tcell {
+  white-space: initial;
+}
+
+mat-paginator{
+  margin: auto;
+  width: 90%;
+}
+
+.mat-row:hover {
+  background-color: #EEE;
+  cursor: pointer;
 }

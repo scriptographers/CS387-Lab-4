@@ -31,8 +31,7 @@ export class MatchesComponent implements OnInit {
       this.page_size = params.get('size') ? parseInt(params.get('size') as string) : 10;
       this.offset = (this.page - 1) * this.page_size;
     });
-    console.log(this.page, this.page_size);
-
+    
     this.matches = [];
     this.dataSource = new MatTableDataSource();
 
@@ -46,10 +45,15 @@ export class MatchesComponent implements OnInit {
         this.matches = res;
         this.dataSource = new MatTableDataSource(this.matches);
         this.dataSource.paginator = this.paginator;
-        console.log(this.matches);
-        console.log(this.dataSource);
+        // console.log(this.matches);
+        // console.log(this.dataSource);
       }
     );
+  }
+
+  openMatch(match: any) {
+    let route = '/matches/' + match.match_id;
+    this.router.navigate([route]);
   }
 
 }
