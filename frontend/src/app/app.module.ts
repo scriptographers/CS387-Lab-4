@@ -11,6 +11,8 @@ import { MatchComponent } from './match/match.component';
 
 // Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     ReactiveFormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatTableModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

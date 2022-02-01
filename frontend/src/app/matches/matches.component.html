@@ -1,1 +1,43 @@
-<p>matches works!</p>
+<div class = "">
+
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="team1_name">
+            <th mat-header-cell *matHeaderCellDef> Team 1 </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.team1_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="team2_name">
+            <th mat-header-cell *matHeaderCellDef> Team 2 </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.team2_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="venue_name">
+            <th mat-header-cell *matHeaderCellDef> Venue </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.venue_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="city_name">
+            <th mat-header-cell *matHeaderCellDef> City </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.city_name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="result">
+            <th mat-header-cell *matHeaderCellDef> Result </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.winner_name}} won by {{element.win_margin}} {{element.win_type}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator 
+        [length]="dataSource.length"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]"
+        showFirstLastButtons 
+        aria-label="Select matches">
+    </mat-paginator>
+
+</div>
