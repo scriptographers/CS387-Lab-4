@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServerService } from '../server.service';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
@@ -22,8 +22,7 @@ export class MatchComponent implements OnInit {
   show_summary: boolean;
   show_sc: boolean;
 
-  plabels: string[];
-  pvalues: number[];
+  // Pie
 
   pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -36,12 +35,48 @@ export class MatchComponent implements OnInit {
     }
   };
   pieChartType: ChartType = 'pie';
-  pieChartData: ChartData<'pie'>  = {
-    labels: [],
-    datasets: [ {
-      data: []
-    } ]
+  pieChartData: ChartData<'pie'>  = {labels: [], datasets: [ { data: [] } ] };
+
+  // Line
+
+  lineChartType: ChartType = 'line';
+
+  lineChartData: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        data: [],
+        label: 'Innings 1',
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        fill: 'origin',
+      },
+      {
+        data: [],
+        label: 'Innings 2',
+        backgroundColor: 'rgba(77,83,96,0.2)',
+        borderColor: 'rgba(77,83,96,1)',
+        pointBackgroundColor: 'rgba(77,83,96,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(77,83,96,1)',
+        fill: 'origin',
+      }
+    ],
+    labels: []
   };
+
+  lineChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    elements: {line: {tension: 0.2}}, // smoother fit
+    scales: {}
+  };
+
+  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -84,10 +119,7 @@ export class MatchComponent implements OnInit {
     this.displayedColumnsTop3Bowl = ['bowler', 'wickets', 'runs_given'];
 
     this.show_summary = false;
-    this.show_sc = false;
-
-    this.plabels = [];
-    this.pvalues = [];
+    this.show_sc = false;    
 
   }
 
@@ -114,7 +146,7 @@ export class MatchComponent implements OnInit {
     );
 
     this.load_innings(1, this.first);
-    this.load_innings(2, this.second);  
+    this.load_innings(2, this.second); 
 
   }
 
@@ -140,6 +172,19 @@ export class MatchComponent implements OnInit {
     this.server.get('/innings/overs_breakup', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
       res => {
         data.overs_breakup = res;
+        var llabels = Object.keys(data.overs_breakup);
+        var lruns = llabels.map(key => data.overs_breakup[key].runs);
+        llabels = llabels.map(key => (Number(key) + 1).toString());
+        this.lineChartData.datasets[inn_no-1].data = lruns;
+        if (!this.lineChartData.labels){
+          var ltemp = 0;
+        }
+        else{
+          var ltemp = this.lineChartData.labels.length;
+        }
+        if (ltemp < llabels.length){
+          this.lineChartData.labels = llabels;
+        }
       }
     );
 
@@ -158,14 +203,12 @@ export class MatchComponent implements OnInit {
     this.server.get('/innings/runs_breakup', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
       res => {
         data.runs_breakup = res[0];
-        this.plabels = Object.keys(data.runs_breakup);
-        this.pvalues = this.plabels.map(key => data.runs_breakup[key]);
-        console.log(this.plabels);
-        console.log(this.pvalues);
+        var plabels = Object.keys(data.runs_breakup);
+        var pvalues = plabels.map(key => data.runs_breakup[key]);
         this.pieChartData = {
-          labels: this.plabels,
+          labels: plabels,
           datasets: [ {
-            data: this.pvalues
+            data: pvalues
           } ]
         };
       }
