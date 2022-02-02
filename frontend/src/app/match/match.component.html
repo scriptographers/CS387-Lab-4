@@ -287,9 +287,20 @@
     </h3>
 
     <h2>Runs Breakup</h2>
+
+    <h3>First Innings</h3>
     <div>
         <canvas baseChart
-            [data]="pieChartData"
+            [data]="pieChartData1"
+            [type]="pieChartType"
+            [options]="pieChartOptions">
+        </canvas>
+    </div>
+
+    <h3>Second Innings</h3>
+    <div>
+        <canvas baseChart
+            [data]="pieChartData2"
             [type]="pieChartType"
             [options]="pieChartOptions">
         </canvas>

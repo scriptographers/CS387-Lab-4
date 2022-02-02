@@ -1,4 +1,4 @@
-import { ViewChild, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServerService } from '../server.service';
 import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
@@ -35,7 +35,8 @@ export class MatchComponent implements OnInit {
     }
   };
   pieChartType: ChartType = 'pie';
-  pieChartData: ChartData<'pie'>  = {labels: [], datasets: [ { data: [] } ] };
+  pieChartData1: ChartData<'pie'>  = {labels: [], datasets: [ { data: [] } ] };
+  pieChartData2: ChartData<'pie'>  = {labels: [], datasets: [ { data: [] } ] };
 
   // Line
 
@@ -48,10 +49,10 @@ export class MatchComponent implements OnInit {
         label: 'Innings 1',
         backgroundColor: 'rgba(148,159,177,0.2)',
         borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+        pointBackgroundColor: 'rgba(0,0,0,0)',
+        pointBorderColor: 'rgba(0,0,0,0)',
+        pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
+        pointHoverBorderColor: 'rgba(140,150,170,0.5)',
         fill: 'origin',
       },
       {
@@ -59,10 +60,10 @@ export class MatchComponent implements OnInit {
         label: 'Innings 2',
         backgroundColor: 'rgba(77,83,96,0.2)',
         borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(77,83,96,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,83,96,1)',
+        pointBackgroundColor: 'rgba(0,0,0,0)',
+        pointBorderColor: 'rgba(0,0,0,0)',
+        pointHoverBackgroundColor: 'rgba(70,80,90,0.5)',
+        pointHoverBorderColor: 'rgba(70,80,90,0.5)',
         fill: 'origin',
       }
     ],
@@ -75,8 +76,6 @@ export class MatchComponent implements OnInit {
     elements: {line: {tension: 0.2}}, // smoother fit
     scales: {}
   };
-
-  @ViewChild(BaseChartDirective) chart?: BaseChartDirective;
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -174,6 +173,7 @@ export class MatchComponent implements OnInit {
         data.overs_breakup = res;
         var llabels = Object.keys(data.overs_breakup);
         var lruns = llabels.map(key => data.overs_breakup[key].runs);
+        lruns = lruns.map((sum => value => sum += Number(value))(0));
         llabels = llabels.map(key => (Number(key) + 1).toString());
         this.lineChartData.datasets[inn_no-1].data = lruns;
         if (!this.lineChartData.labels){
@@ -205,12 +205,20 @@ export class MatchComponent implements OnInit {
         data.runs_breakup = res[0];
         var plabels = Object.keys(data.runs_breakup);
         var pvalues = plabels.map(key => data.runs_breakup[key]);
-        this.pieChartData = {
-          labels: plabels,
-          datasets: [ {
-            data: pvalues
-          } ]
-        };
+        if (inn_no == 1)
+          this.pieChartData1 = {
+            labels: plabels,
+            datasets: [ {
+              data: pvalues
+            } ]
+          };
+        else
+          this.pieChartData2 = {
+            labels: plabels,
+            datasets: [ {
+              data: pvalues
+            } ]
+          };
       }
     );
   }
