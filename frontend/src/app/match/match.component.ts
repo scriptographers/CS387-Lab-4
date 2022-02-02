@@ -52,7 +52,7 @@ export class MatchComponent implements OnInit {
         pointBackgroundColor: 'rgba(0,0,0,0)',
         pointBorderColor: 'rgba(0,0,0,0)',
         pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
-        pointHoverBorderColor: 'rgba(140,150,170,0.5)',
+        pointHoverBorderColor: 'rgba(140,150,170,1)',
         fill: 'origin',
       },
       {
@@ -63,7 +63,7 @@ export class MatchComponent implements OnInit {
         pointBackgroundColor: 'rgba(0,0,0,0)',
         pointBorderColor: 'rgba(0,0,0,0)',
         pointHoverBackgroundColor: 'rgba(70,80,90,0.5)',
-        pointHoverBorderColor: 'rgba(70,80,90,0.5)',
+        pointHoverBorderColor: 'rgba(70,80,90,1)',
         fill: 'origin',
       }
     ],
@@ -71,10 +71,11 @@ export class MatchComponent implements OnInit {
   };
 
   lineChartOptions: ChartConfiguration['options'] = {
+
     responsive: true,
     maintainAspectRatio: false,
     elements: {line: {tension: 0.2}}, // smoother fit
-    scales: {}
+
   };
 
   constructor(private router: Router,
