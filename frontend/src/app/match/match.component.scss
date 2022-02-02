@@ -4,6 +4,11 @@ h2{
     margin-top: 1em;
 }
 
+h3{
+    width: 90%;
+    margin: auto;
+}
+
 mat-list{
     width: 90%;
     margin: auto;
@@ -12,4 +17,18 @@ mat-list{
 p{
     padding: 0;
     margin: 0;
+}
+
+button{
+    display:block;
+    margin: auto;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+canvas{
+    display: block;
+    margin: auto;
+    height: 50em !important;
+    //width: 50em !important;
 }

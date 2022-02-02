@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServerService } from '../server.service';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'app-match',
@@ -15,6 +17,31 @@ export class MatchComponent implements OnInit {
   match_info: any;
   displayedColumnsBat: any;
   displayedColumnsBowl: any;
+  displayedColumnsTop3Bat: any;
+  displayedColumnsTop3Bowl: any;
+  show_summary: boolean;
+  show_sc: boolean;
+
+  plabels: string[];
+  pvalues: number[];
+
+  pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+    }
+  };
+  pieChartType: ChartType = 'pie';
+  pieChartData: ChartData<'pie'>  = {
+    labels: [],
+    datasets: [ {
+      data: []
+    } ]
+  };
 
   constructor(private router: Router,
     private route: ActivatedRoute,
@@ -53,7 +80,23 @@ export class MatchComponent implements OnInit {
 
     this.displayedColumnsBat = ['batsman', 'runs', 'fours', 'sixes', 'balls_faced'];
     this.displayedColumnsBowl = ['bowler', 'balls', 'runs', 'wickets'];
+    this.displayedColumnsTop3Bat = ['batsman', 'runs', 'balls'];
+    this.displayedColumnsTop3Bowl = ['bowler', 'wickets', 'runs_given'];
 
+    this.show_summary = false;
+    this.show_sc = false;
+
+    this.plabels = [];
+    this.pvalues = [];
+
+  }
+
+  showSummary(){
+    this.show_summary = !this.show_summary;
+  }
+
+  showSC(){
+    this.show_sc = !this.show_sc;
   }
 
   ngOnInit(): void {
@@ -71,7 +114,8 @@ export class MatchComponent implements OnInit {
     );
 
     this.load_innings(1, this.first);
-    this.load_innings(2, this.second);
+    this.load_innings(2, this.second);  
+
   }
 
   load_innings(inn_no: number, data: any): void {
@@ -114,6 +158,16 @@ export class MatchComponent implements OnInit {
     this.server.get('/innings/runs_breakup', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
       res => {
         data.runs_breakup = res[0];
+        this.plabels = Object.keys(data.runs_breakup);
+        this.pvalues = this.plabels.map(key => data.runs_breakup[key]);
+        console.log(this.plabels);
+        console.log(this.pvalues);
+        this.pieChartData = {
+          labels: this.plabels,
+          datasets: [ {
+            data: this.pvalues
+          } ]
+        };
       }
     );
   }

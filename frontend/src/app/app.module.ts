@@ -15,7 +15,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
 
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import {MatDividerModule} from '@angular/material/divider';
     MatTableModule,
     MatPaginatorModule,
     MatListModule,
-    MatDividerModule
+    MatDividerModule,
+    MatButtonModule,
+    NgChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

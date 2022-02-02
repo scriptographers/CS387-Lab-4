@@ -19,7 +19,7 @@ export class MatchesComponent implements OnInit {
   displayedColumns: any;
   dataSource: any;
   
-   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private router: Router,
