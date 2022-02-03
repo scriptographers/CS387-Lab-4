@@ -23,7 +23,6 @@ export class MatchComponent implements OnInit {
   show_sc: boolean;
 
   // Pie
-
   pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
@@ -35,13 +34,11 @@ export class MatchComponent implements OnInit {
     }
   };
   pieChartType: ChartType = 'pie';
-  pieChartData1: ChartData<'pie'>  = {labels: [], datasets: [ { data: [] } ] };
-  pieChartData2: ChartData<'pie'>  = {labels: [], datasets: [ { data: [] } ] };
+  pieChartData1: ChartData<'pie'> = { labels: [], datasets: [{ data: [] }] };
+  pieChartData2: ChartData<'pie'> = { labels: [], datasets: [{ data: [] }] };
 
   // Line
-
   lineChartType: ChartType = 'line';
-
   lineChartData: ChartConfiguration['data'] = {
     datasets: [
       {
@@ -69,16 +66,14 @@ export class MatchComponent implements OnInit {
     ],
     labels: []
   };
-
   lineChartOptions: ChartConfiguration['options'] = {
-
     responsive: true,
     maintainAspectRatio: false,
-    elements: {line: {tension: 0.2}}, // smoother fit
-
+    elements: { line: { tension: 0.2 } }, // smoother fit
   };
 
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private server: ServerService
   ) {
@@ -119,15 +114,15 @@ export class MatchComponent implements OnInit {
     this.displayedColumnsTop3Bowl = ['bowler', 'wickets', 'runs_given'];
 
     this.show_summary = false;
-    this.show_sc = false;    
+    this.show_sc = false;
 
   }
 
-  showSummary(){
+  showSummary() {
     this.show_summary = !this.show_summary;
   }
 
-  showSC(){
+  showSC() {
     this.show_sc = !this.show_sc;
   }
 
@@ -146,8 +141,7 @@ export class MatchComponent implements OnInit {
     );
 
     this.load_innings(1, this.first);
-    this.load_innings(2, this.second); 
-
+    this.load_innings(2, this.second);
   }
 
   load_innings(inn_no: number, data: any): void {
@@ -176,14 +170,13 @@ export class MatchComponent implements OnInit {
         var lruns = llabels.map(key => data.overs_breakup[key].runs);
         lruns = lruns.map((sum => value => sum += Number(value))(0));
         llabels = llabels.map(key => (Number(key) + 1).toString());
-        this.lineChartData.datasets[inn_no-1].data = lruns;
-        if (!this.lineChartData.labels){
+        this.lineChartData.datasets[inn_no - 1].data = lruns;
+        if (!this.lineChartData.labels) {
           var ltemp = 0;
-        }
-        else{
+        } else {
           var ltemp = this.lineChartData.labels.length;
         }
-        if (ltemp < llabels.length){
+        if (ltemp < llabels.length) {
           this.lineChartData.labels = llabels;
         }
       }
@@ -209,16 +202,16 @@ export class MatchComponent implements OnInit {
         if (inn_no == 1)
           this.pieChartData1 = {
             labels: plabels,
-            datasets: [ {
+            datasets: [{
               data: pvalues
-            } ]
+            }]
           };
         else
           this.pieChartData2 = {
             labels: plabels,
-            datasets: [ {
+            datasets: [{
               data: pvalues
-            } ]
+            }]
           };
       }
     );

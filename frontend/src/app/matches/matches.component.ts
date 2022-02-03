@@ -18,7 +18,7 @@ export class MatchesComponent implements OnInit {
   offset: number = 0;
   displayedColumns: any;
   dataSource: any;
-  
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
@@ -31,12 +31,11 @@ export class MatchesComponent implements OnInit {
       this.page_size = params.get('size') ? parseInt(params.get('size') as string) : 10;
       this.offset = (this.page - 1) * this.page_size;
     });
-    
+
     this.matches = [];
     this.dataSource = new MatTableDataSource();
 
     this.displayedColumns = ['team1_name', 'team2_name', 'venue_name', 'city_name', 'result'];
-
   }
 
   ngOnInit(): void {
