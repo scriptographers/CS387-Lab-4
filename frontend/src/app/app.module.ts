@@ -8,14 +8,15 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatchesComponent } from './matches/matches.component';
 import { MatchComponent } from './match/match.component';
+import { PtableComponent } from './ptable/ptable.component';
 
 // Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatListModule} from '@angular/material/list';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatButtonModule} from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatButtonModule } from '@angular/material/button';
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -23,7 +24,8 @@ import { NgChartsModule } from 'ng2-charts';
   declarations: [
     AppComponent,
     MatchesComponent,
-    MatchComponent
+    MatchComponent,
+    PtableComponent
   ],
   imports: [
     BrowserModule,
