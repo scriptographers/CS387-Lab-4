@@ -80,7 +80,26 @@ const innings = {
   }
 }
 
+const ptable = {
+  team_list: (req, res) => {
+    pool.query(query.ptable.team_list, handler.bind(null, res));
+  },
+
+  points: (req, res) => {
+    season_year = req.query['season_year'] ? parseInt(req.query['season_year']) : 0;
+    team_id = req.query['team_id'] ? parseInt(req.query['team_id']) : 0;
+    pool.query(query.ptable.points, [season_year, team_id], handler.bind(null, res));
+  },
+
+  nrr: (req, res) => {
+    season_year = req.query['season_year'] ? parseInt(req.query['season_year']) : 0;
+    team_id = req.query['team_id'] ? parseInt(req.query['team_id']) : 0;
+    pool.query(query.ptable.nrr, [season_year, team_id], handler.bind(null, res));
+  }
+};
+
 module.exports = {
   match,
-  innings
+  innings,
+  ptable
 };

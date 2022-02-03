@@ -37,6 +37,10 @@ app.get("/innings/top3_bat", db.innings.top3_bat);
 app.get("/innings/top3_bowl", db.innings.top3_bowl);
 app.get("/innings/runs_breakup", db.innings.runs_breakup);
 
+app.get("/ptable/team_list", db.ptable.team_list);
+app.get("/ptable/points", db.ptable.points);
+app.get("/ptable/nrr", db.ptable.nrr);
+
 // set port as 4000 and listen for requests
 app.listen(4000, () => {
   console.log(`Server is running on http://localhost:4000`);
