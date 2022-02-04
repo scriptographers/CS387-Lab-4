@@ -1,4 +1,4 @@
-<div class = "">
+<div class="">
 
     <h2>First Innings</h2>
 
@@ -141,20 +141,24 @@
         <mat-divider></mat-divider>
         <mat-list-item>Umpires: &nbsp;
             <p>
-            <span *ngFor="let u of match_info.umpires; let index = index"> {{u.umpire_name}}{{index == match_info.umpires.length-1 ? ' ' : ', '}} </span>
+                <span *ngFor="let u of match_info.umpires; let index = index">
+                    {{u.umpire_name}}{{index == match_info.umpires.length-1 ? ' ' : ', '}}
+                </span>
             </p>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>Playing XI of {{match_info.basic.team1_name}}: &nbsp;
             <p>
-            <span *ngFor="let p of match_info.players1; let index = index">{{p.player_name}}{{index == match_info.players1.length-1 ? ' ' : ', '}} 
-            </span>
+                <span
+                    *ngFor="let p of match_info.players1; let index = index">{{p.player_name}}{{index == match_info.players1.length-1 ? ' ' : ', '}}
+                </span>
             </p>
         </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>Playing XI of {{match_info.basic.team2_name}}: &nbsp;
             <p>
-                <span *ngFor="let p of match_info.players2; let index = index">{{p.player_name}}{{index == match_info.players2.length-1 ? ' ' : ', '}} 
+                <span
+                    *ngFor="let p of match_info.players2; let index = index">{{p.player_name}}{{index == match_info.players2.length-1 ? ' ' : ', '}}
                 </span>
             </p>
         </mat-list-item>
@@ -178,12 +182,12 @@
 <div>
     <button mat-flat-button color="primary" (click)="showSummary()">Match Summary</button>
 </div>
-<div *ngIf="show_summary"> 
+<div *ngIf="show_summary">
 
     <h2>Summary: Match ID: {{match_info.basic.match_id}}, IPL {{match_info.basic.season_year}}</h2>
 
     <h2>Team 1</h2>
-    
+
     <h3>Top Batsmen</h3>
 
     <table mat-table [dataSource]="first.top3_bat">
@@ -193,7 +197,7 @@
             <td class="coll" mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
         </ng-container>
 
-         <ng-container matColumnDef="runs">
+        <ng-container matColumnDef="runs">
             <th mat-header-cell *matHeaderCellDef> Runs </th>
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.runs}} </td>
         </ng-container>
@@ -217,7 +221,7 @@
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
         </ng-container>
 
-         <ng-container matColumnDef="wickets">
+        <ng-container matColumnDef="wickets">
             <th mat-header-cell *matHeaderCellDef> Wickets </th>
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.wickets}} </td>
         </ng-container>
@@ -233,7 +237,7 @@
     </table>
 
     <h2>Team 2</h2>
-    
+
     <h3>Top Batsmen</h3>
 
     <table mat-table [dataSource]="second.top3_bat">
@@ -243,7 +247,7 @@
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
         </ng-container>
 
-         <ng-container matColumnDef="runs">
+        <ng-container matColumnDef="runs">
             <th mat-header-cell *matHeaderCellDef> Runs </th>
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.runs}} </td>
         </ng-container>
@@ -267,7 +271,7 @@
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
         </ng-container>
 
-         <ng-container matColumnDef="wickets">
+        <ng-container matColumnDef="wickets">
             <th mat-header-cell *matHeaderCellDef> Wickets </th>
             <td mat-cell *matCellDef="let element" class="tcell"> {{element.wickets}} </td>
         </ng-container>
