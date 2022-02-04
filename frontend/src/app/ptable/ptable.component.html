@@ -1,1 +1,49 @@
-<p>ptable works!</p>
+<div *ngIf="loading">
+    <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading">
+
+    <table mat-table [dataSource]="ptable">
+
+        <ng-container matColumnDef="team">
+            <th mat-header-cell *matHeaderCellDef> Team </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.name}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mat">
+            <th mat-header-cell *matHeaderCellDef> Matches </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.matches}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="won">
+            <th mat-header-cell *matHeaderCellDef> Wins </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.wins}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="lost">
+            <th mat-header-cell *matHeaderCellDef> Losses </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.losses}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tied">
+            <th mat-header-cell *matHeaderCellDef> Losses </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.ties}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="pts">
+            <th mat-header-cell *matHeaderCellDef> Points </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.points}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="nrr">
+            <th mat-header-cell *matHeaderCellDef> NRR </th>
+            <td mat-cell *matCellDef="let element" class="tcell"> {{element.nrr}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+</div>

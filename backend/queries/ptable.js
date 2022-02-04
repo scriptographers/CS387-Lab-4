@@ -23,7 +23,7 @@ FROM (
 
 // NRR
 const nrr = `
-SELECT round((1.0 * runs_by_team) / (overs_by_team) - (1.0 * runs_against_team) / (overs_against_team), 2) AS nrr
+SELECT round((1.0 * runs_by_team) / coalesce(nullif(overs_by_team, 0), 1) - (1.0 * runs_against_team) / coalesce(nullif(overs_against_team, 0), 1), 2) AS nrr
 FROM (
   SELECT sum(runs_by_over) AS runs_by_team,
     count(CASE WHEN overs_by = 0 THEN NULL ELSE 1 END) AS overs_by_team,

@@ -17,6 +17,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -39,7 +40,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatListModule,
     MatDividerModule,
     MatButtonModule,
-    NgChartsModule
+    NgChartsModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

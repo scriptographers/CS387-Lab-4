@@ -12,6 +12,8 @@ export class PtableComponent implements OnInit {
   season_year: number = 0;
   teams: any;
   ptable: any;
+  displayedColumns: any;
+  loading = true;
 
   constructor(
     private router: Router,
@@ -23,7 +25,10 @@ export class PtableComponent implements OnInit {
     });
 
     this.teams = [];
-    this.ptable = {};
+    this.ptable = [[]];
+
+    this.displayedColumns = ['team', 'mat', 'won', 'lost', 'tied', 'pts', 'nrr'];
+
   }
 
   ngOnInit(): void {
@@ -38,15 +43,14 @@ export class PtableComponent implements OnInit {
   load_table(): void {
     this.teams.forEach(
       (team: any) => {
-        console.log(team.team_id);
         this.ptable[team.team_id] = {
           'name': team.team_name,
-          'matches': 0,
-          'wins': 0,
-          'losses': 0,
-          'ties': 0,
-          'points': 0,
-          'nrr': 0.0
+          'matches': -1,
+          'wins': -1,
+          'losses': -1,
+          'ties': -1,
+          'points': -1,
+          'nrr': -1
         };
         this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team.team_id }).subscribe(
           res => {
@@ -63,7 +67,9 @@ export class PtableComponent implements OnInit {
           }
         );
       });
+    // this.ptable.splice(0, 1);
     console.log(this.ptable);
+    this.loading = false;
   }
 
 }
