@@ -14,7 +14,7 @@ SELECT matches,
   2 * wins AS points
 FROM (
   SELECT coalesce(count(match_id), 0) AS matches,
-    coalesce(count(CASE WHEN match_winner = 3 THEN 1 ELSE NULL END), 0) AS wins,
+    coalesce(count(CASE WHEN match_winner = $2 THEN 1 ELSE NULL END), 0) AS wins,
     coalesce(count(CASE WHEN win_type IS NULL THEN 1 ELSE NULL END), 0) AS ties
   FROM match
   WHERE season_year = $1 AND (team1 = $2 OR team2 = $2)
