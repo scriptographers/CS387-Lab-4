@@ -80,6 +80,7 @@ export class MatchComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.match_id = params.get('match_id') ? parseInt(params.get('match_id') as string) : 0;
     });
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.first = {
       batting: [],

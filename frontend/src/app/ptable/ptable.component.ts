@@ -24,6 +24,7 @@ export class PtableComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.season_year = params.get('season_year') ? parseInt(params.get('season_year') as string) : 0;
     });
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     this.teams = [];
     this.data = {};
