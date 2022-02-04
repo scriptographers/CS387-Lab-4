@@ -43,7 +43,7 @@ export class PtableComponent implements OnInit {
   load_table(): void {
     this.teams.forEach(
       (team: any) => {
-        this.ptable[team.team_id] = {
+        this.ptable[team.team_id-1] = {
           'name': team.team_name,
           'matches': -1,
           'wins': -1,
@@ -54,20 +54,19 @@ export class PtableComponent implements OnInit {
         };
         this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team.team_id }).subscribe(
           res => {
-            this.ptable[team.team_id]['matches'] = res[0].matches;
-            this.ptable[team.team_id]['wins'] = res[0].wins;
-            this.ptable[team.team_id]['losses'] = res[0].losses;
-            this.ptable[team.team_id]['ties'] = res[0].ties;
-            this.ptable[team.team_id]['points'] = res[0].points;
+            this.ptable[team.team_id-1]['matches'] = res[0].matches;
+            this.ptable[team.team_id-1]['wins'] = res[0].wins;
+            this.ptable[team.team_id-1]['losses'] = res[0].losses;
+            this.ptable[team.team_id-1]['ties'] = res[0].ties;
+            this.ptable[team.team_id-1]['points'] = res[0].points;
           }
         );
         this.server.get('/ptable/nrr', { 'season_year': this.season_year, 'team_id': team.team_id }).subscribe(
           res => {
-            this.ptable[team.team_id]['nrr'] = res[0].nrr;
+            this.ptable[team.team_id-1]['nrr'] = res[0].nrr;
           }
         );
       });
-    // this.ptable.splice(0, 1);
     console.log(this.ptable);
     this.loading = false;
   }
