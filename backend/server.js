@@ -41,6 +41,10 @@ app.get("/ptable/team_list", db.ptable.team_list);
 app.get("/ptable/points", db.ptable.points);
 app.get("/ptable/nrr", db.ptable.nrr);
 
+app.get("/venue/venue_list", db.venue.venue_list);
+app.get("/venue/venue_basic", db.venue.venue_basic);
+app.get("/venue/venue_win", db.venue.venue_win);
+
 // set port as 4000 and listen for requests
 app.listen(4000, () => {
   console.log(`Server is running on http://localhost:4000`);

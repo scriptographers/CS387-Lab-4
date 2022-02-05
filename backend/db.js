@@ -98,8 +98,25 @@ const ptable = {
   }
 };
 
+const venue = {
+  venue_list: (req, res) => {
+    pool.query(query.venue.venue_list, handler.bind(null, res));
+  },
+
+  venue_basic: (req, res) => {
+    venue_id = req.query['venue_id'] ? parseInt(req.query['venue_id']) : 0;
+    pool.query(query.venue.venue_basic, [venue_id], handler.bind(null, res));
+  },
+
+  venue_win: (req, res) => {
+    venue_id = req.query['venue_id'] ? parseInt(req.query['venue_id']) : 0;
+    pool.query(query.venue.venue_win, [venue_id], handler.bind(null, res));
+  }
+};
+
 module.exports = {
   match,
   innings,
-  ptable
+  ptable,
+  venue
 };
