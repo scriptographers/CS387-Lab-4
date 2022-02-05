@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServerService } from '../server.service';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-venue',
@@ -13,6 +14,47 @@ export class VenueComponent implements OnInit {
   basic_info: any;
   win_info: any;
   first_inns: any;
+
+  pieChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+    }
+  };
+  pieChartType: ChartType = 'pie';
+  pieChartData: ChartData<'pie'> = { labels: [], datasets: [{ data: [] }] };
+
+
+  // Line
+  lineChartType: ChartType = 'line';
+  lineChartData: ChartConfiguration['data'] = {
+    datasets: [
+      {
+        data: [],
+        label: 'Runs',
+        // backgroundColor: 'rgba(148,159,177,0.2)',
+        // borderColor: 'rgba(148,159,177,1)',
+        // pointBackgroundColor: 'rgba(0,0,0,0)',
+        // pointBorderColor: 'rgba(0,0,0,0)',
+        // pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
+        // pointHoverBorderColor: 'rgba(140,150,170,1)',
+        fill: 'origin',
+      }
+    ],
+    labels: []
+  };
+  lineChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    elements: { line: { tension: 0.0 } }, // smoother fit
+  };
+
+  loading = false;
+
 
   constructor(
     private router: Router,
@@ -57,6 +99,14 @@ export class VenueComponent implements OnInit {
     this.server.get('/venue/venue_win', { 'venue_id': this.venue_id }).subscribe(
       res => {
         this.win_info = res[0];
+        var plabels = ["Team batting first won", "Team batting second won", "Matches drawn"]; // Object.keys(this.win_info);
+        var pvalues = [this.win_info["bat"], this.win_info["bowl"], this.win_info["ties"]];
+        this.pieChartData = {
+          labels: plabels,
+          datasets: [{
+            data: pvalues
+          }]
+        };
         console.log(this.win_info);
       }
     );
@@ -64,7 +114,14 @@ export class VenueComponent implements OnInit {
     this.server.get('/venue/first_inn', { 'venue_id': this.venue_id }).subscribe(
       res => {
         this.first_inns = res;
+        var keys = Object.keys(this.first_inns);
+        var llabels = keys.map(key => this.first_inns[key].season_year);
+        var lruns = keys.map(key => Number(this.first_inns[key].avg_1st));
+        this.lineChartData.labels = llabels;
+        this.lineChartData.datasets[0].data = lruns;
+        console.log(this.lineChartData);
         console.log(this.first_inns);
+        this.loading = true;
       }
     );
   }

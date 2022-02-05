@@ -170,7 +170,7 @@
     <button mat-flat-button color="primary" (click)="showSC()">Score Comparison</button>
 </div>
 <div *ngIf="show_sc" class="container">
-    <div>
+    <div class="container">
         <canvas baseChart
             [data]="lineChartData"
             [options]="lineChartOptions"
@@ -293,7 +293,7 @@
     <h2>Runs Breakup</h2>
 
     <h3>First Innings</h3>
-    <div>
+    <div class="container">
         <canvas baseChart
             [data]="pieChartData1"
             [type]="pieChartType"
@@ -302,7 +302,7 @@
     </div>
 
     <h3>Second Innings</h3>
-    <div>
+    <div class="container">
         <canvas baseChart
             [data]="pieChartData2"
             [type]="pieChartType"

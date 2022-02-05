@@ -2,6 +2,11 @@
 
 // @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
+// SCSS Mixin that adds shadow to elements
+@mixin shadow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 html,
 body {
   height: 100%;
@@ -27,6 +32,7 @@ table {
   margin: auto;
   margin-top: 1em;
   margin-bottom: 1em;
+  @include shadow();
 }
 
 .tcell {
@@ -37,6 +43,7 @@ table {
 mat-paginator {
   margin: auto;
   width: 90%;
+  @include shadow();
 }
 
 .container {
@@ -48,6 +55,8 @@ mat-paginator {
 mat-list {
   margin-top: 1em !important;
   margin-bottom: 1em !important;
+  padding-top: 0 !important;
+  @include shadow();
 }
 
 mat-list-item {
