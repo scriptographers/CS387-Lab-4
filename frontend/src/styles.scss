@@ -31,6 +31,7 @@ table {
 
 .tcell {
   white-space: initial;
+  // text-align: center!important;
 }
 
 mat-paginator {
@@ -63,4 +64,8 @@ mat-spinner {
 
 .mat-menu-item{
   text-align: center !important;
+}
+
+th{
+  font-size: 1em !important;
 }
