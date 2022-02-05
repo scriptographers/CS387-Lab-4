@@ -17,7 +17,6 @@ LEFT OUTER JOIN team AS t1 ON match.team1 = t1.team_id
 LEFT OUTER JOIN team AS t2 ON match.team2 = t2.team_id
 LEFT OUTER JOIN team AS t3 ON match.match_winner = t3.team_id
 ORDER BY season_year DESC, match_id ASC
-LIMIT $1 OFFSET $2;
 `;
 
 // Match data
