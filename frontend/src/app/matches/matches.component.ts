@@ -26,7 +26,7 @@ export class MatchesComponent implements OnInit, AfterViewInit {
     this.matches = [];
     this.dataSource = new MatTableDataSource();
 
-    this.displayedColumns = ['team1_name', 'team2_name', 'venue_name', 'city_name', 'result'];
+    this.displayedColumns = ['year', 'team1_name', 'team2_name', 'venue_name', 'city_name', 'result'];
   }
 
   ngOnInit(): void {
