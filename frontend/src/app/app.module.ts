@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MatchesComponent } from './matches/matches.component';
 import { MatchComponent } from './match/match.component';
+import { PlayerComponent } from './player/player.component';
 import { PtableComponent } from './ptable/ptable.component';
 import { VenuesComponent } from './venues/venues.component';
 import { VenueComponent } from './venue/venue.component';
@@ -34,6 +35,7 @@ import { NgChartsModule } from 'ng2-charts';
     AppComponent,
     MatchesComponent,
     MatchComponent,
+    PlayerComponent,
     PtableComponent,
     VenuesComponent,
     VenueComponent,
