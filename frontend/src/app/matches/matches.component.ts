@@ -10,7 +10,7 @@ import { MatPaginator } from '@angular/material/paginator';
   templateUrl: './matches.component.html',
   styleUrls: ['./matches.component.scss']
 })
-export class MatchesComponent implements OnInit {
+export class MatchesComponent implements OnInit, AfterViewInit {
 
   matches: any;
   page: number = 1;
@@ -42,12 +42,15 @@ export class MatchesComponent implements OnInit {
     this.server.get('/match/match_list', { 'size': this.page_size, 'offset': this.offset }).subscribe(
       res => {
         this.matches = res;
-        this.dataSource = new MatTableDataSource(this.matches);
-        this.dataSource.paginator = this.paginator;
+        this.dataSource.data = this.matches;
         // console.log(this.matches);
         // console.log(this.dataSource);
       }
     );
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
   openMatch(match: any) {

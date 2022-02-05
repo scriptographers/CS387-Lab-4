@@ -1,4 +1,4 @@
-<div class = "">
+<div>
 
     <table mat-table [dataSource]="dataSource">
 
@@ -32,12 +32,12 @@
 
     </table>
 
-    <mat-paginator
-        [length]="dataSource.length"
-        [pageSize]="10"
-        [pageSizeOptions]="[5, 10, 20]"
-        showFirstLastButtons
-        aria-label="Select matches">
-    </mat-paginator>
+</div>
 
+<div>
+    <mat-paginator
+        [length]="dataSource.data.length"
+        [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]">
+    </mat-paginator>
 </div>
