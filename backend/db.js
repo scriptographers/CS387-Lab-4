@@ -114,6 +114,14 @@ const venue = {
   first_inn: (req, res) => {
     venue_id = req.query['venue_id'] ? parseInt(req.query['venue_id']) : 0;
     pool.query(query.venue.first_inn, [venue_id], handler.bind(null, res));
+  },
+
+  venue_add: (req, res) => {
+    venue_name = req.body['name'];
+    city = req.body['city'];
+    country = req.body['country'];
+    capacity = req.body['capacity'];
+    pool.query(query.venue.venue_add, [venue_name, city, country, capacity], handler.bind(null, res));
   }
 };
 

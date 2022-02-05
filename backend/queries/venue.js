@@ -70,9 +70,15 @@ WHERE venue_id = $1
 GROUP BY season_year;
 `;
 
+const venue_add = `
+INSERT INTO venue (venue_name, city_name, country_name, capacity)
+VALUES ($1, $2, $3, $4);
+`;
+
 module.exports = {
     venue_list,
     venue_basic,
     venue_win,
-    first_inn
+    first_inn,
+    venue_add
 };
