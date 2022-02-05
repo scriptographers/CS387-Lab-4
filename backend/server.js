@@ -45,6 +45,7 @@ app.get("/venue/venue_list", db.venue.venue_list);
 app.get("/venue/venue_basic", db.venue.venue_basic);
 app.get("/venue/venue_win", db.venue.venue_win);
 app.get("/venue/first_inn", db.venue.first_inn);
+app.post("/venue/venue_add", db.venue.venue_add);
 
 // set port as 4000 and listen for requests
 app.listen(4000, () => {

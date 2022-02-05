@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'matches/:match_id', component: MatchComponent },
   { path: 'pointstable/:season_year', component: PtableComponent },
   { path: 'venues', component: VenuesComponent },
-  { path: 'venues/:venue_id', component: VenueComponent },
+  { path: 'venue/:venue_id', component: VenueComponent },
   { path: 'venues/add', component: VenueAddComponent },
 ];
 

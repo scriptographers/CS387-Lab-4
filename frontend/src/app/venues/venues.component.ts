@@ -39,7 +39,7 @@ export class VenuesComponent implements OnInit, AfterViewInit {
   }
 
   openVenue(venue: any) {
-    let route = '/venues/' + venue.venue_id;
+    let route = '/venue/' + venue.venue_id;
     this.router.navigate([route]);
   }
 
