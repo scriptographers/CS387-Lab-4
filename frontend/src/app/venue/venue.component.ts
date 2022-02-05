@@ -15,6 +15,7 @@ export class VenueComponent implements OnInit {
   win_info: any;
   first_inns: any;
 
+  // Pie
   pieChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
@@ -27,7 +28,6 @@ export class VenueComponent implements OnInit {
   };
   pieChartType: ChartType = 'pie';
   pieChartData: ChartData<'pie'> = { labels: [], datasets: [{ data: [] }] };
-
 
   // Line
   lineChartType: ChartType = 'line';
@@ -53,8 +53,7 @@ export class VenueComponent implements OnInit {
     elements: { line: { tension: 0.0 } }, // smoother fit
   };
 
-  loading = false;
-
+  loading: boolean = false;
 
   constructor(
     private router: Router,
@@ -85,7 +84,7 @@ export class VenueComponent implements OnInit {
       ties: 0
     };
 
-    this.first_inns = [];
+    this.first_inns = {};
   }
 
   ngOnInit(): void {
@@ -113,11 +112,12 @@ export class VenueComponent implements OnInit {
 
     this.server.get('/venue/first_inn', { 'venue_id': this.venue_id }).subscribe(
       res => {
-        this.first_inns = res;
-        var keys = Object.keys(this.first_inns);
-        var llabels = keys.map(key => this.first_inns[key].season_year);
-        var lruns = keys.map(key => Number(this.first_inns[key].avg_1st));
-        this.lineChartData.labels = llabels;
+        res.forEach((data: any) => {
+          this.first_inns[data.season_year] = data.avg_1st;
+        });
+        var keys = [2011, 2013, 2015, 2017];
+        var lruns = keys.map(key => Number(this.first_inns[key] | 0));
+        this.lineChartData.labels = keys;
         this.lineChartData.datasets[0].data = lruns;
         console.log(this.lineChartData);
         console.log(this.first_inns);

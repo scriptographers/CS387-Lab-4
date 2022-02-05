@@ -4,29 +4,29 @@
     <mat-list>
         <mat-list-item> Name: {{basic_info.venue_name}} </mat-list-item>
         <mat-divider></mat-divider>
-        
+
         <mat-list-item> Address: {{basic_info.city_name}}, {{basic_info.country_name}} </mat-list-item>
         <mat-divider></mat-divider>
-        
+
         <mat-list-item> Capacity: {{basic_info.capacity | number}} </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item> Total matches played: {{basic_info.total_matches}} </mat-list-item>
         <mat-divider></mat-divider>
-        
-        <mat-list-item> Highest total recorded: {{basic_info.total_high}} </mat-list-item>
+
+        <mat-list-item> Highest total recorded: {{basic_info.total_high || 'NA'}} </mat-list-item>
         <mat-divider></mat-divider>
-        
-        <mat-list-item> Lowest total recorded: {{basic_info.total_low}} </mat-list-item>
+
+        <mat-list-item> Lowest total recorded: {{basic_info.total_low || 'NA'}} </mat-list-item>
         <mat-divider></mat-divider>
-        
-        <mat-list-item> Highest total chased: {{basic_info.highest_chased}} </mat-list-item>
+
+        <mat-list-item> Highest total chased: {{basic_info.highest_chased || 'NA'}} </mat-list-item>
     </mat-list>
 
 </div>
 
 <div class="container">
-    
+
     <h2>Outline of Matches held at {{basic_info.venue_name}}</h2>
 
     <div class="container">
@@ -40,7 +40,7 @@
 </div>
 
 <div class="container">
-    
+
     <h2>Average First Innings Score</h2>
 
     <div *ngIf="loading" class="container">
