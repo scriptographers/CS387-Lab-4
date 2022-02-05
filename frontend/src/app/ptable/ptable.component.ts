@@ -28,7 +28,7 @@ export class PtableComponent implements OnInit {
 
     this.teams = [];
     this.data = {};
-    this.ptable = [[]];
+    this.ptable = [];
     this.loading = true;
 
     this.displayedColumns = ['team', 'mat', 'won', 'lost', 'tied', 'pts', 'nrr'];
@@ -56,32 +56,40 @@ export class PtableComponent implements OnInit {
           'points': 0,
           'nrr': 0
         };
-        apis.push(new Promise((resolve: any) => {
-          this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team.team_id }).subscribe(
-            res => {
-              this.data[team.team_id]['matches'] = res[0].matches;
-              this.data[team.team_id]['wins'] = res[0].wins;
-              this.data[team.team_id]['losses'] = res[0].losses;
-              this.data[team.team_id]['ties'] = res[0].ties;
-              this.data[team.team_id]['points'] = res[0].points;
-              resolve();
-            }
-          );
-        }));
-        apis.push(new Promise((resolve: any) => {
-          this.server.get('/ptable/nrr', { 'season_year': this.season_year, 'team_id': team.team_id }).subscribe(
-            res => {
-              this.data[team.team_id]['nrr'] = res[0].nrr;
-              resolve();
-            }
-          );
-        }));
+        apis.push(this.gen_points_promise(team.team_id));
+        apis.push(this.gen_nrr_promise(team.team_id));
       });
 
     Promise.all(apis).then(() => {
       console.log(this.data);
       this.finalize()
       this.loading = false;
+    });
+  }
+
+  gen_points_promise(team_id: number): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
+        res => {
+          this.data[team_id]['matches'] = res[0].matches;
+          this.data[team_id]['wins'] = res[0].wins;
+          this.data[team_id]['losses'] = res[0].losses;
+          this.data[team_id]['ties'] = res[0].ties;
+          this.data[team_id]['points'] = res[0].points;
+          resolve();
+        }
+      );
+    });
+  }
+
+  gen_nrr_promise(team_id: number): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/ptable/nrr', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
+        res => {
+          this.data[team_id]['nrr'] = res[0].nrr;
+          resolve();
+        }
+      );
     });
   }
 

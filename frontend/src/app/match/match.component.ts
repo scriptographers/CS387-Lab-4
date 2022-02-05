@@ -116,7 +116,6 @@ export class MatchComponent implements OnInit {
 
     this.show_summary = false;
     this.show_sc = false;
-
   }
 
   showSummary() {
