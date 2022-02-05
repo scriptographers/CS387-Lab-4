@@ -28,6 +28,13 @@ def data(cur, data_folder):
             execute_values(cur, sql, values)
 
 
+def set_seq(cur):
+    cur.execute('SELECT max(venue_id) FROM venue;')
+    res = cur.fetchall()
+
+    cur.execute('ALTER SEQUENCE venue_id_seq RESTART WITH {};'.format(res[0][0] + 1))
+
+
 if __name__ == '__main__':
     load_dotenv()
 
@@ -38,6 +45,7 @@ if __name__ == '__main__':
 
     ddl(cur, 'lab4db.ddl')
     data(cur, './data/')
+    set_seq(cur)
     conn.commit()
 
     cur.close()

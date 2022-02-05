@@ -223,3 +223,7 @@ CREATE TRIGGER umpire_count
   ON umpire_match
   FOR EACH ROW
   EXECUTE PROCEDURE umpire_count();
+
+DROP SEQUENCE IF EXISTS venue_id_seq;
+CREATE SEQUENCE venue_id_seq START WITH 1 INCREMENT BY 1;
+ALTER TABLE venue ALTER venue_id SET DEFAULT nextval('venue_id_seq');
