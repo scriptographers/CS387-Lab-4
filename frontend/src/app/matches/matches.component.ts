@@ -13,9 +13,6 @@ import { MatPaginator } from '@angular/material/paginator';
 export class MatchesComponent implements OnInit, AfterViewInit {
 
   matches: any;
-  page: number = 1;
-  page_size: number = 10;
-  offset: number = 0;
   displayedColumns: any;
   dataSource: any;
 
@@ -26,12 +23,6 @@ export class MatchesComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private server: ServerService
   ) {
-    this.route.queryParamMap.subscribe(params => {
-      this.page = params.get('page') ? parseInt(params.get('page') as string) : 1;
-      this.page_size = params.get('size') ? parseInt(params.get('size') as string) : 10;
-      this.offset = (this.page - 1) * this.page_size;
-    });
-
     this.matches = [];
     this.dataSource = new MatTableDataSource();
 
@@ -39,12 +30,10 @@ export class MatchesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/match/match_list', { 'size': this.page_size, 'offset': this.offset }).subscribe(
+    this.server.get('/match/match_list').subscribe(
       res => {
         this.matches = res;
         this.dataSource.data = this.matches;
-        // console.log(this.matches);
-        // console.log(this.dataSource);
       }
     );
   }

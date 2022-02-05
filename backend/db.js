@@ -14,9 +14,7 @@ const handler = (res, error, results) => {
 
 const match = {
   match_list: (req, res) => {
-    size = req.query['size'] ? parseInt(req.query['size']) : 10;
-    offset = req.query['offset'] ? parseInt(req.query['offset']) : 0;
-    pool.query(query.match.match_list, [size, offset], handler.bind(null, res));
+    pool.query(query.match.match_list, handler.bind(null, res));
   },
 
   match_info: (req, res) => {
