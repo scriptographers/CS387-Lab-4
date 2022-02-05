@@ -12,7 +12,6 @@ import { MatPaginator } from '@angular/material/paginator';
 })
 export class MatchesComponent implements OnInit, AfterViewInit {
 
-  matches: any;
   displayedColumns: any;
   dataSource: any;
 
@@ -23,7 +22,6 @@ export class MatchesComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private server: ServerService
   ) {
-    this.matches = [];
     this.dataSource = new MatTableDataSource();
 
     this.displayedColumns = ['year', 'team1_name', 'team2_name', 'venue_name', 'city_name', 'result'];
@@ -32,8 +30,7 @@ export class MatchesComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.server.get('/match/match_list').subscribe(
       res => {
-        this.matches = res;
-        this.dataSource.data = this.matches;
+        this.dataSource.data = res;
       }
     );
   }
