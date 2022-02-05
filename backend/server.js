@@ -44,6 +44,7 @@ app.get("/ptable/nrr", db.ptable.nrr);
 app.get("/venue/venue_list", db.venue.venue_list);
 app.get("/venue/venue_basic", db.venue.venue_basic);
 app.get("/venue/venue_win", db.venue.venue_win);
+app.get("/venue/first_inn", db.venue.first_inn);
 
 // set port as 4000 and listen for requests
 app.listen(4000, () => {

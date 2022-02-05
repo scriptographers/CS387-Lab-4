@@ -55,8 +55,24 @@ FROM match
 WHERE venue_id = $1;
 `;
 
+const first_inn = `
+SELECT season_year,
+  round(avg(runs), 2) AS avg_1st
+FROM (
+  SELECT match_id,
+    sum(runs_scored + extra_runs) AS runs
+  FROM ball_by_ball
+  WHERE innings_no = 1
+  GROUP BY match_id, innings_no
+  ) AS sq1
+LEFT OUTER JOIN match ON match.match_id = sq1.match_id
+WHERE venue_id = $1
+GROUP BY season_year;
+`;
+
 module.exports = {
     venue_list,
     venue_basic,
-    venue_win
+    venue_win,
+    first_inn
 };

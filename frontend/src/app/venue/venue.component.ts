@@ -12,6 +12,7 @@ export class VenueComponent implements OnInit {
   venue_id: number = 0;
   basic_info: any;
   win_info: any;
+  first_inns: any;
 
   constructor(
     private router: Router,
@@ -41,6 +42,8 @@ export class VenueComponent implements OnInit {
       matches: 0,
       ties: 0
     };
+
+    this.first_inns = [];
   }
 
   ngOnInit(): void {
@@ -55,6 +58,13 @@ export class VenueComponent implements OnInit {
       res => {
         this.win_info = res[0];
         console.log(this.win_info);
+      }
+    );
+
+    this.server.get('/venue/first_inn', { 'venue_id': this.venue_id }).subscribe(
+      res => {
+        this.first_inns = res;
+        console.log(this.first_inns);
       }
     );
   }
