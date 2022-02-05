@@ -22,6 +22,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatIconModule} from '@angular/material/icon'
 
 import { NgChartsModule } from 'ng2-charts';
 
@@ -49,7 +50,8 @@ import { NgChartsModule } from 'ng2-charts';
     MatButtonModule,
     NgChartsModule,
     MatProgressSpinnerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
