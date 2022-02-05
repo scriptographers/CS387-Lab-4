@@ -9,6 +9,9 @@ import { AppComponent } from './app.component';
 import { MatchesComponent } from './matches/matches.component';
 import { MatchComponent } from './match/match.component';
 import { PtableComponent } from './ptable/ptable.component';
+import { VenuesComponent } from './venues/venues.component';
+import { VenueComponent } from './venue/venue.component';
+import { VenueAddComponent } from './venue-add/venue-add.component';
 
 // Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,7 +29,10 @@ import { NgChartsModule } from 'ng2-charts';
     AppComponent,
     MatchesComponent,
     MatchComponent,
-    PtableComponent
+    PtableComponent,
+    VenuesComponent,
+    VenueComponent,
+    VenueAddComponent
   ],
   imports: [
     BrowserModule,
