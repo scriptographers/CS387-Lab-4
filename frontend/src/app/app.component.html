@@ -1,12 +1,15 @@
 <mat-toolbar color="primary">
 
-  <a routerLink="/" class="title">{{title}}</a>
+  <button mat-button routerLink="/" class="title"><mat-icon style="transform: scale(1.5); margin-right: 0.1em;">poll</mat-icon> {{title}}</button>
   <span class="spacing"></span>
 
-  <a routerLink="/matches" class="subtitle">Matches</a>
+  <button mat-button routerLink="/matches" class="subtitle">Matches<mat-icon>table_chart</mat-icon></button>
   <span class="spacing"></span>
 
-  <button mat-button [matMenuTriggerFor]="menu" class="subtitle">Points Table<mat-icon>arrow_drop_down</mat-icon></button>
+  <button mat-button routerLink="/" class="subtitle">Venues<mat-icon>place</mat-icon></button>
+  <span class="spacing"></span>
+
+  <button mat-button [matMenuTriggerFor]="menu" class="subtitle">Points Table<mat-icon>show_chart</mat-icon></button>
   <mat-menu #menu="matMenu">
     <a mat-menu-item routerLink="/pointstable/2011">2011</a>
     <a mat-menu-item routerLink="/pointstable/2013">2013</a>
@@ -17,3 +20,5 @@
 </mat-toolbar>
 
 <router-outlet></router-outlet>
+
+<!-- https://www.angularjswiki.com/angular/angular-material-icons-list-mat-icon-list/ -->
