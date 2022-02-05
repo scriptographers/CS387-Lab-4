@@ -1,4 +1,4 @@
-<div class="">
+<div class="container">
 
     <h2>First Innings</h2>
 
@@ -166,10 +166,10 @@
 
 </div>
 
-<div>
+<div class="container">
     <button mat-flat-button color="primary" (click)="showSC()">Score Comparison</button>
 </div>
-<div *ngIf="show_sc">
+<div *ngIf="show_sc" class="container">
     <div>
         <canvas baseChart
             [data]="lineChartData"
@@ -179,10 +179,10 @@
     </div>
 </div>
 
-<div>
+<div class="container">
     <button mat-flat-button color="primary" (click)="showSummary()">Match Summary</button>
 </div>
-<div *ngIf="show_summary">
+<div *ngIf="show_summary" class="container">
 
     <h2>Summary: Match ID: {{match_info.basic.match_id}}, IPL {{match_info.basic.season_year}}</h2>
 
