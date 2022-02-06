@@ -10,6 +10,8 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 })
 export class MatchComponent implements OnInit {
 
+  loading: boolean;
+
   match_id: number = 0;
   first: any;
   second: any;
@@ -19,8 +21,6 @@ export class MatchComponent implements OnInit {
   displayedColumnsBowl: any;
   displayedColumnsTop3Bat: any;
   displayedColumnsTop3Bowl: any;
-  show_summary: boolean;
-  show_sc: boolean;
 
   // Pie
   pieChartOptions: ChartConfiguration['options'] = {
@@ -95,6 +95,7 @@ export class MatchComponent implements OnInit {
       this.match_id = params.get('match_id') ? parseInt(params.get('match_id') as string) : 0;
     });
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.loading = true;
 
     this.first = {
       batting: [],
@@ -105,7 +106,6 @@ export class MatchComponent implements OnInit {
       top3_bowl: [],
       runs_breakup: []
     };
-
     this.second = {
       batting: [],
       bowling: [],
@@ -115,7 +115,6 @@ export class MatchComponent implements OnInit {
       top3_bowl: [],
       runs_breakup: []
     };
-
     this.info = {
       basic: [],
       players1: [],
@@ -127,123 +126,41 @@ export class MatchComponent implements OnInit {
     this.displayedColumnsBowl = ['bowler', 'balls', 'runs', 'wickets'];
     this.displayedColumnsTop3Bat = ['batsman', 'runs', 'balls'];
     this.displayedColumnsTop3Bowl = ['bowler', 'wickets', 'runs_given'];
-
-    this.show_summary = false;
-    this.show_sc = false;
-  }
-
-  showSummary() {
-    this.show_summary = !this.show_summary;
-  }
-
-  showSC() {
-    this.show_sc = !this.show_sc;
   }
 
   ngOnInit(): void {
-    this.server.get('/match/info', { 'match_id': this.match_id }).subscribe(
-      res => {
-        this.info.basic = res[0];
-        this.fill_team_info();
-      }
-    );
+    const apis = [
+      this.match_info_promise(),
+      this.match_umpires_promise(),
+      this.innings_bat_promise(1, this.first),
+      this.innings_bowl_promise(1, this.first),
+      this.innings_extras_promise(1, this.first),
+      this.innings_overs_breakup_promise(1, this.first),
+      this.innings_top3_bat_promise(1, this.first),
+      this.innings_top3_bowl_promise(1, this.first),
+      this.innings_runs_breakup_promise(1, this.first),
+      this.innings_bat_promise(2, this.second),
+      this.innings_bowl_promise(2, this.second),
+      this.innings_extras_promise(2, this.second),
+      this.innings_overs_breakup_promise(2, this.second),
+      this.innings_top3_bat_promise(2, this.second),
+      this.innings_top3_bowl_promise(2, this.second),
+      this.innings_runs_breakup_promise(2, this.second)
+    ];
+    Promise.all(apis).then(() => {
+      this.other_info()
 
-    this.server.get('/match/umpires', { 'match_id': this.match_id }).subscribe(
-      res => {
-        this.info.umpires = res;
-      }
-    );
-
-    this.load_innings(1, this.first);
-    this.load_innings(2, this.second);
+      const apis2 = [
+        this.match_players_team1_promise(),
+        this.match_players_team2_promise()
+      ];
+      Promise.all(apis2).then(() => {
+        this.loading = false;
+      });
+    });
   }
 
-  load_innings(inn_no: number, data: any): void {
-    this.server.get('/innings/bat', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.batting = res;
-      }
-    );
-
-    this.server.get('/innings/bowl', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.bowling = res;
-      }
-    );
-
-    this.server.get('/innings/extras', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.extras = res[0];
-      }
-    );
-
-    this.server.get('/innings/overs_breakup', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.overs_breakup = res;
-        var llabels = Object.keys(data.overs_breakup);
-        var lruns = llabels.map(key => data.overs_breakup[key].runs);
-        lruns = lruns.map((sum => value => sum += Number(value))(0));
-        llabels = llabels.map(key => (Number(key) + 1).toString());
-        this.lineChartData.datasets[inn_no - 1].data = lruns;
-        if (!this.lineChartData.labels) {
-          var ltemp = 0;
-        } else {
-          var ltemp = this.lineChartData.labels.length;
-        }
-        if (ltemp < llabels.length) {
-          this.lineChartData.labels = llabels;
-        }
-      }
-    );
-
-    this.server.get('/innings/top3_bat', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.top3_bat = res;
-      }
-    );
-
-    this.server.get('/innings/top3_bowl', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.top3_bowl = res;
-      }
-    );
-
-    this.server.get('/innings/runs_breakup', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
-      res => {
-        data.runs_breakup = res[0];
-        var plabels = Object.keys(data.runs_breakup);
-        var pvalues = plabels.map(key => data.runs_breakup[key]);
-        if (inn_no == 1)
-          this.pieChartData1 = {
-            labels: plabels,
-            datasets: [{
-              data: pvalues
-            }]
-          };
-        else
-          this.pieChartData2 = {
-            labels: plabels,
-            datasets: [{
-              data: pvalues
-            }]
-          };
-      }
-    );
-  }
-
-  fill_team_info(): void {
-    this.server.get('/match/players', { 'match_id': this.match_id, 'team_id': this.info.basic.team1_id }).subscribe(
-      res => {
-        this.info.players1 = res;
-      }
-    );
-
-    this.server.get('/match/players', { 'match_id': this.match_id, 'team_id': this.info.basic.team2_id }).subscribe(
-      res => {
-        this.info.players2 = res;
-      }
-    );
-
+  other_info(): void {
     if (this.info.basic.toss_winner_id == this.info.basic.team1_id) {
       this.info.basic.toss_winner_name = this.info.basic.team1_name;
       if (this.info.basic.toss_name === 'bat') {
@@ -269,10 +186,156 @@ export class MatchComponent implements OnInit {
     } else {
       this.info.basic.winner_name = this.info.basic.team2_name;
     }
+  }
 
-    console.log(this.info);
-    console.log(this.first);
-    console.log(this.second);
+  match_info_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/match/info', { 'match_id': this.match_id }).subscribe(
+        res => {
+          this.info.basic = res[0];
+          resolve();
+        }
+      );
+    });
+  }
+
+  match_umpires_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/match/umpires', { 'match_id': this.match_id }).subscribe(
+        res => {
+          this.info.umpires = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  match_players_team1_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/match/players', { 'match_id': this.match_id, 'team_id': this.info.basic.team1_id }).subscribe(
+        res => {
+          this.info.players1 = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  match_players_team2_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/match/players', { 'match_id': this.match_id, 'team_id': this.info.basic.team2_id }).subscribe(
+        res => {
+          this.info.players2 = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_bat_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/bat', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.batting = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_bowl_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/bowl', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.bowling = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_extras_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/extras', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.extras = res[0];
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_overs_breakup_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/overs_breakup', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.overs_breakup = res;
+          var llabels = Object.keys(data.overs_breakup);
+          var lruns = llabels.map(key => data.overs_breakup[key].runs);
+          lruns = lruns.map((sum => value => sum += Number(value))(0));
+          llabels = llabels.map(key => (Number(key) + 1).toString());
+          this.lineChartData.datasets[inn_no - 1].data = lruns;
+          if (!this.lineChartData.labels) {
+            var ltemp = 0;
+          } else {
+            var ltemp = this.lineChartData.labels.length;
+          }
+          if (ltemp < llabels.length) {
+            this.lineChartData.labels = llabels;
+          }
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_top3_bat_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/top3_bat', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.top3_bat = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_top3_bowl_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/top3_bowl', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.top3_bowl = res;
+          resolve();
+        }
+      );
+    });
+  }
+
+  innings_runs_breakup_promise(inn_no: number, data: any): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/innings/runs_breakup', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
+        res => {
+          data.runs_breakup = res[0];
+          var plabels = Object.keys(data.runs_breakup);
+          var pvalues = plabels.map(key => data.runs_breakup[key]);
+          if (inn_no == 1)
+            this.pieChartData1 = {
+              labels: plabels,
+              datasets: [{
+                data: pvalues
+              }]
+            };
+          else
+            this.pieChartData2 = {
+              labels: plabels,
+              datasets: [{
+                data: pvalues
+              }]
+            };
+          resolve();
+        }
+      );
+    });
   }
 
 }

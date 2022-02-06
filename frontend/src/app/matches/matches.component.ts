@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ServerService } from '../server.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
@@ -19,11 +19,9 @@ export class MatchesComponent implements OnInit, AfterViewInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private server: ServerService
   ) {
     this.dataSource = new MatTableDataSource();
-
     this.displayedColumns = ['year', 'team1_name', 'team2_name', 'venue_name', 'city_name', 'result'];
   }
 

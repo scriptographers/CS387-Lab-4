@@ -29,25 +29,16 @@ export class VenueAddComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('Submitting');
     if (!this.form.valid) {
-      console.log('Form not valid. Please check that fields are correctly filled in');
       return;
     }
 
-    console.log('Form valid');
-
-    const data = this.form.value;
-    console.log(data);
-
-    this.server.post('/venue/add', data).subscribe(
+    this.server.post('/venue/add', this.form.value).subscribe(
       res => {
-        console.log(res);
         this.router.navigateByUrl('venues');
       },
       error => {
-        console.log(error);
-        this.router.navigate(['/venues/']);
+        this.router.navigateByUrl('venues');
       }
     )
 

@@ -10,6 +10,8 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 })
 export class VenueComponent implements OnInit {
 
+  loading: boolean;
+
   venue_id: number = 0;
   basic_info: any;
   win_info: any;
@@ -22,7 +24,7 @@ export class VenueComponent implements OnInit {
     plugins: {
       legend: {
         display: true,
-        position: 'bottom',
+        position: 'bottom'
       },
     }
   };
@@ -36,13 +38,7 @@ export class VenueComponent implements OnInit {
       {
         data: [],
         label: 'Runs',
-        // backgroundColor: 'rgba(148,159,177,0.2)',
-        // borderColor: 'rgba(148,159,177,1)',
-        // pointBackgroundColor: 'rgba(0,0,0,0)',
-        // pointBorderColor: 'rgba(0,0,0,0)',
-        // pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
-        // pointHoverBorderColor: 'rgba(140,150,170,1)',
-        fill: 'origin',
+        fill: 'origin'
       }
     ],
     labels: []
@@ -53,8 +49,6 @@ export class VenueComponent implements OnInit {
     elements: { line: { tension: 0.0 } }, // smoother fit
   };
 
-  loading: boolean = false;
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -64,6 +58,7 @@ export class VenueComponent implements OnInit {
       this.venue_id = params.get('venue_id') ? parseInt(params.get('venue_id') as string) : 0;
     });
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.loading = true;
 
     this.basic_info = {
       venue_id: this.venue_id,
@@ -88,42 +83,65 @@ export class VenueComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/venue/basic', { 'venue_id': this.venue_id }).subscribe(
-      res => {
-        this.basic_info = res[0];
-        console.log(this.basic_info);
-      }
-    );
+    const apis = [
+      this.basic_promise(),
+      this.win_stat_promise(),
+      this.first_inn_promise()
+    ];
+    Promise.all(apis).then(() => {
+      this.loading = false;
+    });
+  }
 
-    this.server.get('/venue/win_stat', { 'venue_id': this.venue_id }).subscribe(
-      res => {
-        this.win_info = res[0];
-        var plabels = ["Team batting first won", "Team batting second won", "Matches drawn"]; // Object.keys(this.win_info);
-        var pvalues = [this.win_info["bat"], this.win_info["bowl"], this.win_info["ties"]];
-        this.pieChartData = {
-          labels: plabels,
-          datasets: [{
-            data: pvalues
-          }]
-        };
-        console.log(this.win_info);
-      }
-    );
+  basic_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/venue/basic', { 'venue_id': this.venue_id }).subscribe(
+        res => {
+          if (res.length == 0) {
+            this.router.navigateByUrl('venues');
+          }
+          this.basic_info = res[0];
+          resolve();
+        }
+      );
+    });
+  }
 
-    this.server.get('/venue/first_inn', { 'venue_id': this.venue_id }).subscribe(
-      res => {
-        res.forEach((data: any) => {
-          this.first_inns[data.season_year] = data.avg_1st;
-        });
-        var keys = [2011, 2013, 2015, 2017];
-        var lruns = keys.map(key => Number(this.first_inns[key] | 0));
-        this.lineChartData.labels = keys;
-        this.lineChartData.datasets[0].data = lruns;
-        console.log(this.lineChartData);
-        console.log(this.first_inns);
-        this.loading = true;
-      }
-    );
+  win_stat_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/venue/win_stat', { 'venue_id': this.venue_id }).subscribe(
+        res => {
+          this.win_info = res[0];
+          var plabels = ["Team batting first won", "Team batting second won", "Matches drawn"]; // Object.keys(this.win_info);
+          var pvalues = [this.win_info["bat"], this.win_info["bowl"], this.win_info["ties"]];
+          this.pieChartData = {
+            labels: plabels,
+            datasets: [{
+              data: pvalues
+            }]
+          };
+          resolve();
+        }
+      );
+    });
+  }
+
+  first_inn_promise(): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/venue/first_inn', { 'venue_id': this.venue_id }).subscribe(
+        res => {
+          res.forEach((data: any) => {
+            this.first_inns[data.season_year] = data.avg_1st;
+          });
+          var keys = [2011, 2013, 2015, 2017];
+          var lruns = keys.map(key => Number(this.first_inns[key] | 0));
+          this.lineChartData.labels = keys;
+          this.lineChartData.datasets[0].data = lruns;
+          this.loading = true;
+          resolve();
+        }
+      );
+    });
   }
 
 }

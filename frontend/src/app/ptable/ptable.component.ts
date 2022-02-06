@@ -9,13 +9,14 @@ import { ServerService } from '../server.service';
 })
 export class PtableComponent implements OnInit {
 
+  loading: boolean;
+
   season_year: number = 0;
   teams: any;
   data: any;
   ptable: any;
 
   displayedColumns: any;
-  loading: boolean;
 
   constructor(
     private router: Router,
@@ -26,11 +27,11 @@ export class PtableComponent implements OnInit {
       this.season_year = params.get('season_year') ? parseInt(params.get('season_year') as string) : 0;
     });
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.loading = true;
 
     this.teams = [];
     this.data = {};
     this.ptable = [];
-    this.loading = true;
 
     this.displayedColumns = ['team', 'mat', 'won', 'lost', 'tied', 'pts', 'nrr'];
   }
@@ -57,40 +58,13 @@ export class PtableComponent implements OnInit {
           'points': 0,
           'nrr': 0
         };
-        apis.push(this.gen_points_promise(team.team_id));
-        apis.push(this.gen_nrr_promise(team.team_id));
+        apis.push(this.points_promise(team.team_id));
+        apis.push(this.nrr_promise(team.team_id));
       });
 
     Promise.all(apis).then(() => {
-      console.log(this.data);
       this.finalize()
       this.loading = false;
-    });
-  }
-
-  gen_points_promise(team_id: number): Promise<unknown> {
-    return new Promise((resolve: any) => {
-      this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
-        res => {
-          this.data[team_id]['matches'] = res[0].matches;
-          this.data[team_id]['wins'] = res[0].wins;
-          this.data[team_id]['losses'] = res[0].losses;
-          this.data[team_id]['ties'] = res[0].ties;
-          this.data[team_id]['points'] = res[0].points;
-          resolve();
-        }
-      );
-    });
-  }
-
-  gen_nrr_promise(team_id: number): Promise<unknown> {
-    return new Promise((resolve: any) => {
-      this.server.get('/ptable/nrr', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
-        res => {
-          this.data[team_id]['nrr'] = res[0].nrr;
-          resolve();
-        }
-      );
     });
   }
 
@@ -116,6 +90,32 @@ export class PtableComponent implements OnInit {
           return 0;
         }
       }
+    });
+  }
+
+  points_promise(team_id: number): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
+        res => {
+          this.data[team_id]['matches'] = res[0].matches;
+          this.data[team_id]['wins'] = res[0].wins;
+          this.data[team_id]['losses'] = res[0].losses;
+          this.data[team_id]['ties'] = res[0].ties;
+          this.data[team_id]['points'] = res[0].points;
+          resolve();
+        }
+      );
+    });
+  }
+
+  nrr_promise(team_id: number): Promise<unknown> {
+    return new Promise((resolve: any) => {
+      this.server.get('/ptable/nrr', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
+        res => {
+          this.data[team_id]['nrr'] = res[0].nrr;
+          resolve();
+        }
+      );
     });
   }
 
