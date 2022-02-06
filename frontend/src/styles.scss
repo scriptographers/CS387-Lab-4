@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 @import '@angular/material/prebuilt-themes/indigo-pink.css';
 
 // SCSS Mixin that adds shadow to elements
@@ -34,11 +33,11 @@ table {
 
 .tcell {
   white-space: initial;
-  // text-align: center!important;
 }
 
 mat-paginator {
   margin: auto;
+  margin-top: -1em !important;
   width: 90%;
   @include shadow();
 }
