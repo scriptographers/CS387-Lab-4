@@ -1,1 +1,25 @@
-<h1>TODO: Routes and description table</h1>
+<div class="container">
+
+  <table mat-table [dataSource]="dataSource" style="width:40%">
+
+      <ng-container matColumnDef="route">
+          <th mat-header-cell *matHeaderCellDef> Route </th>
+          <td mat-cell *matCellDef="let element" class="tcell"> {{element.route}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="desc">
+          <th mat-header-cell *matHeaderCellDef> Description </th>
+          <td mat-cell *matCellDef="let element" class="tcell"> {{element.desc}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="section">
+        <th mat-header-cell *matHeaderCellDef> Section in PS </th>
+        <td mat-cell *matCellDef="let element" class="tcell"> {{element.section}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+</div>
