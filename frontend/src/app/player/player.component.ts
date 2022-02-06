@@ -22,6 +22,17 @@ export class PlayerComponent implements OnInit {
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
     maintainAspectRatio: false,
+
+    scales: {
+      'y1':
+        {
+          position: 'left',
+        },
+      'y2': {
+        position: 'right',
+      }
+    },
+
     plugins: {
       legend: {
         display: true,
@@ -30,17 +41,17 @@ export class PlayerComponent implements OnInit {
     }
   };
   barChartType: ChartType = 'bar';
-  barChartDataBat: ChartData<'bar'> = {
+  barChartDataBat: ChartData = {
     labels: [],
     datasets: [
       {data: [], label: 'Runs', backgroundColor: [], hoverBackgroundColor: 'rgba(140,150,170,0.5)'},
     ]
   };
-  barChartDataBowl: ChartData<'bar'> = {
+  barChartDataBowl: ChartData = {
     labels: [],
     datasets: [
-      {data: [], label: 'Runs Conceded'},
-      {data: [], label: 'Wickets'},
+      {data: [], label: 'Runs Conceded', yAxisID: 'y1', backgroundColor: 'rgba(255, 0, 0, 0.4)', hoverBackgroundColor: 'rgba(255, 0, 0, 0.3)'},
+      {data: [], label: 'Wickets', type: 'line', yAxisID: 'y2'},
     ]
   };
 
