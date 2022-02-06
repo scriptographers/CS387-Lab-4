@@ -92,6 +92,16 @@ const player = {
   bowl_stat: (req, res) => {
     player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
     pool.query(query.player.bowl_stat, [player_id], handler.bind(null, res));
+  },
+
+  bat_per_match: (req, res) => {
+    player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
+    pool.query(query.player.bat_per_match, [player_id], handler.bind(null, res));
+  },
+
+  bowl_per_match: (req, res) => {
+    player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
+    pool.query(query.player.bowl_per_match, [player_id], handler.bind(null, res));
   }
 };
 

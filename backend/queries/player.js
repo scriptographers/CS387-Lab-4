@@ -61,8 +61,32 @@ FROM (
   ) AS sq2;
 `;
 
+// Batting stat per match
+const bat_per_match = `
+SELECT match_id,
+  coalesce(sum(runs_scored), 0) AS runs_per_match
+FROM ball_by_ball
+WHERE striker = $1
+GROUP BY match_id, innings_no
+ORDER BY match_id;
+`;
+
+// Bowling stat per match
+const bowl_per_match = `
+SELECT match_id,
+  count(CASE WHEN (out_type NOT IN ('retired hurt', 'run out')) AND (out_type IS NOT NULL) THEN 1 ELSE NULL END) AS wickets_per_match,
+  coalesce(sum(runs_scored + extra_runs), 0) AS runs_per_match
+FROM ball_by_ball
+WHERE bowler = $1
+GROUP BY match_id, innings_no
+ORDER BY match_id;
+`;
+
+
 module.exports = {
   player_info,
   bat_stat,
-  bowl_stat
+  bowl_stat,
+  bat_per_match,
+  bowl_per_match
 };
