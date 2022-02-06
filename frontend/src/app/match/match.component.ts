@@ -62,6 +62,20 @@ export class MatchComponent implements OnInit {
         pointHoverBackgroundColor: 'rgba(70,80,90,0.5)',
         pointHoverBorderColor: 'rgba(70,80,90,1)',
         fill: 'origin',
+      },
+      {
+        data: [],
+        label: 'Innings 1 Wickets',
+        type: 'scatter',
+        pointBackgroundColor: 'rgba(0,0,0,0)',
+        pointBorderColor: 'rgba(0,0,0,0)',
+      },
+      {
+        data: [],
+        label: 'Innings 2 Wickets',
+        type: 'scatter',
+        pointBackgroundColor: 'rgba(0,0,0,0)',
+        pointBorderColor: 'rgba(0,0,0,0)',
       }
     ],
     labels: []
