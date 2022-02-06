@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ServerService } from '../server.service';
+import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 
 @Component({
   selector: 'app-player',
@@ -15,6 +16,25 @@ export class PlayerComponent implements OnInit {
   bowl_stat: any;
   bat_per_match: any;
   bowl_per_match: any;
+  loading_bat = false;
+
+  barChartOptions: ChartConfiguration['options'] = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        display: true,
+        position: 'bottom',
+      },
+    }
+  };
+  barChartType: ChartType = 'bar';
+  barChartDataBat: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {data: [], label: 'Runs'},
+    ]
+  };
 
   constructor(
     private router: Router,
@@ -85,6 +105,12 @@ export class PlayerComponent implements OnInit {
     this.server.get('/player/bat_per_match', { 'player_id': this.player_id }).subscribe(
       res => {
         this.bat_per_match = res;
+        var keys = Object.keys(res);
+        var llabels = keys.map(key => res[key].match_id);
+        var lruns = keys.map(key => res[key].runs_per_match);
+        this.barChartDataBat.datasets[0].data = lruns;
+        this.barChartDataBat.labels = llabels;
+        this.loading_bat = true;
         console.log(this.bat_per_match);
       }
     );

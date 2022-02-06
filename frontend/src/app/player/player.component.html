@@ -48,3 +48,17 @@
     </mat-list>
 
 </div>
+
+<div class="container">
+    
+    <h2>Runs per Match</h2>
+
+    <div *ngIf="loading_bat" class="container">
+        <canvas baseChart
+        [data]="barChartDataBat"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+    </div>
+
+</div>
