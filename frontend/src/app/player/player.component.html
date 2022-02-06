@@ -20,14 +20,11 @@
     <h2>Batting Statistics</h2>
 
     <mat-list>
-        <mat-list-item> Total matches played: {{bat_stat.total_matches}} </mat-list-item>
+        <mat-list-item> Total matches batted in: {{bat_stat.total_matches}} </mat-list-item>
         <mat-divider></mat-divider>
 
         <mat-list-item> Total runs: {{bat_stat.total_runs}}</mat-list-item>
         <mat-divider></mat-divider>
-
-        <!-- <mat-list-item> Total balls played: {{bat_stat.total_balls}}</mat-list-item>
-        <mat-divider></mat-divider> -->
 
         <mat-list-item> Total runs in fours: {{4*bat_stat.fours}}</mat-list-item>
         <mat-divider></mat-divider>
@@ -56,6 +53,48 @@
     <div *ngIf="loading_bat" class="container">
         <canvas baseChart
         [data]="barChartDataBat"
+        [options]="barChartOptions"
+        [type]="barChartType">
+      </canvas>
+    </div>
+
+</div>
+
+<div class="container">
+    
+    <h2>Bowling Statistics</h2>
+
+    <mat-list>
+        <mat-list-item> Total matches bowled in: {{bowl_stat.total_matches}} </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Total runs conceded: {{bowl_stat.total_runs}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Total wickets: {{bowl_stat.total_wickets}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Total overs bowled: {{bowl_stat.total_overs}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Total balls bowled: {{bowl_stat.total_balls}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Number of five wicket hauls: {{bowl_stat.five_wickets}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Economy: {{bowl_stat.economy}}</mat-list-item>
+    </mat-list>
+
+</div>
+
+<div class="container">
+    
+    <h2>Wickets Taken and Runs Conceded per Match</h2>
+
+    <div *ngIf="loading_bowl" class="container">
+        <canvas baseChart
+        [data]="barChartDataBowl"
         [options]="barChartOptions"
         [type]="barChartType">
       </canvas>

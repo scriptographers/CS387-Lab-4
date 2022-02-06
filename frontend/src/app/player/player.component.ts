@@ -17,6 +17,7 @@ export class PlayerComponent implements OnInit {
   bat_per_match: any;
   bowl_per_match: any;
   loading_bat = false;
+  loading_bowl = false;
 
   barChartOptions: ChartConfiguration['options'] = {
     responsive: true,
@@ -33,6 +34,13 @@ export class PlayerComponent implements OnInit {
     labels: [],
     datasets: [
       {data: [], label: 'Runs'},
+    ]
+  };
+  barChartDataBowl: ChartData<'bar'> = {
+    labels: [],
+    datasets: [
+      {data: [], label: 'Runs Conceded'},
+      {data: [], label: 'Wickets'},
     ]
   };
 
@@ -118,6 +126,14 @@ export class PlayerComponent implements OnInit {
     this.server.get('/player/bowl_per_match', { 'player_id': this.player_id }).subscribe(
       res => {
         this.bowl_per_match = res;
+        var keys = Object.keys(res);
+        var llabels = keys.map(key => res[key].match_id);
+        var lruns = keys.map(key => res[key].runs_per_match);
+        var lwkts = keys.map(key => res[key].wickets_per_match);
+        this.barChartDataBowl.datasets[0].data = lruns;
+        this.barChartDataBowl.datasets[1].data = lwkts;
+        this.barChartDataBowl.labels = llabels;
+        this.loading_bowl = true;
         console.log(this.bowl_per_match);
       }
     );
