@@ -13,6 +13,8 @@ export class PlayerComponent implements OnInit {
   basic_info: any;
   bat_stat: any;
   bowl_stat: any;
+  bat_per_match: any;
+  bowl_per_match: any;
 
   constructor(
     private router: Router,
@@ -30,6 +32,7 @@ export class PlayerComponent implements OnInit {
       batting_hand: '',
       bowling_skill: ''
     };
+
     this.bat_stat = {
       total_matches: 0,
       total_runs: 0,
@@ -52,6 +55,9 @@ export class PlayerComponent implements OnInit {
       five_wickets: 0,
       economy: 0.0
     };
+
+    this.bat_per_match = [];
+    this.bowl_per_match = [];
   }
 
   ngOnInit(): void {
@@ -73,6 +79,20 @@ export class PlayerComponent implements OnInit {
       res => {
         this.bowl_stat = res[0];
         console.log(this.bowl_stat);
+      }
+    );
+
+    this.server.get('/player/bat_per_match', { 'player_id': this.player_id }).subscribe(
+      res => {
+        this.bat_per_match = res;
+        console.log(this.bat_per_match);
+      }
+    );
+
+    this.server.get('/player/bowl_per_match', { 'player_id': this.player_id }).subscribe(
+      res => {
+        this.bowl_per_match = res;
+        console.log(this.bowl_per_match);
       }
     );
   }
