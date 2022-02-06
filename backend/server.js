@@ -37,6 +37,10 @@ app.get("/innings/top3_bat", db.innings.top3_bat);
 app.get("/innings/top3_bowl", db.innings.top3_bowl);
 app.get("/innings/runs_breakup", db.innings.runs_breakup);
 
+app.get("/player/player_info", db.player.player_info);
+app.get("/player/bat_stat", db.player.bat_stat);
+app.get("/player/bowl_stat", db.player.bowl_stat);
+
 app.get("/ptable/team_list", db.ptable.team_list);
 app.get("/ptable/points", db.ptable.points);
 app.get("/ptable/nrr", db.ptable.nrr);

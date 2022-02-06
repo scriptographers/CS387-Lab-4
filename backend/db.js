@@ -10,7 +10,7 @@ const handler = (res, error, results) => {
   else {
     res.status(200).json(results.rows);
   }
-}
+};
 
 const match = {
   match_list: (req, res) => {
@@ -32,7 +32,7 @@ const match = {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
     pool.query(query.match.match_umpires, [match_id], handler.bind(null, res));
   },
-}
+};
 
 const innings = {
   batting: (req, res) => {
@@ -76,7 +76,24 @@ const innings = {
     innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
     pool.query(query.innings.runs_breakup, [match_id, innings_id], handler.bind(null, res));
   }
-}
+};
+
+const player = {
+  player_info: (req, res) => {
+    player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
+    pool.query(query.player.player_info, [player_id], handler.bind(null, res));
+  },
+
+  bat_stat: (req, res) => {
+    player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
+    pool.query(query.player.bat_stat, [player_id], handler.bind(null, res));
+  },
+
+  bowl_stat: (req, res) => {
+    player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
+    pool.query(query.player.bowl_stat, [player_id], handler.bind(null, res));
+  }
+};
 
 const ptable = {
   team_list: (req, res) => {
@@ -128,6 +145,7 @@ const venue = {
 module.exports = {
   match,
   innings,
+  player,
   ptable,
   venue
 };
