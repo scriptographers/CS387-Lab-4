@@ -13,6 +13,7 @@ import { PtableComponent } from './ptable/ptable.component';
 import { VenuesComponent } from './venues/venues.component';
 import { VenueComponent } from './venue/venue.component';
 import { VenueAddComponent } from './venue-add/venue-add.component';
+import { HomeComponent } from './home/home.component';
 
 // Material Modules
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -39,7 +40,8 @@ import { NgChartsModule } from 'ng2-charts';
     PtableComponent,
     VenuesComponent,
     VenueComponent,
-    VenueAddComponent
+    VenueAddComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
