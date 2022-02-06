@@ -33,7 +33,7 @@ export class PlayerComponent implements OnInit {
   barChartDataBat: ChartData<'bar'> = {
     labels: [],
     datasets: [
-      {data: [], label: 'Runs'},
+      {data: [], label: 'Runs', backgroundColor: []},
     ]
   };
   barChartDataBowl: ChartData<'bar'> = {
@@ -88,6 +88,19 @@ export class PlayerComponent implements OnInit {
     this.bowl_per_match = [];
   }
 
+  run2color(runs: any): string{
+    runs = Number(runs);
+    console.log(runs);
+    if (runs <= 30)
+      return 'rgba(255, 0, 0, 0.5)';
+    else if (runs > 30 && runs <= 50)
+      return 'rgba(255, 255, 0, 0.5)';
+    else if (runs > 50)
+      return 'rgba(0, 255, 0, 0.5)';
+    else
+      return "gray";
+  }
+
   ngOnInit(): void {
     this.server.get('/player/info', { 'player_id': this.player_id }).subscribe(
       res => {
@@ -116,7 +129,9 @@ export class PlayerComponent implements OnInit {
         var keys = Object.keys(res);
         var llabels = keys.map(key => res[key].match_id);
         var lruns = keys.map(key => res[key].runs_per_match);
+        var lcols = lruns.map(key => this.run2color(key));
         this.barChartDataBat.datasets[0].data = lruns;
+        this.barChartDataBat.datasets[0].backgroundColor = lcols;
         this.barChartDataBat.labels = llabels;
         this.loading_bat = true;
         console.log(this.bat_per_match);
