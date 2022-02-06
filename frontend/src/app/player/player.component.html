@@ -1,1 +1,50 @@
-<p>player works!</p>
+<div class="container">
+    <h2>Basic Information</h2>
+
+    <mat-list>
+        <mat-list-item> Name: {{basic_info.player_name}} </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Country: {{basic_info.country_name}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Batting hand: {{basic_info.batting_hand}} </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Bowling skill: {{basic_info.bowling_skill}} </mat-list-item>
+    </mat-list>
+
+</div>
+
+<div class="container">
+    <h2>Batting Statistics</h2>
+
+    <mat-list>
+        <mat-list-item> Total matches played: {{bat_stat.total_matches}} </mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Total runs: {{bat_stat.total_runs}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <!-- <mat-list-item> Total balls played: {{bat_stat.total_balls}}</mat-list-item>
+        <mat-divider></mat-divider> -->
+
+        <mat-list-item> Total runs in fours: {{4*bat_stat.fours}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Total runs in sixes: {{6*bat_stat.sixes}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Number of fifties scored: {{bat_stat.fifties}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Highest score: {{bat_stat.hs}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Strike rate: {{bat_stat.strike_rate}}</mat-list-item>
+        <mat-divider></mat-divider>
+
+        <mat-list-item> Average: {{bat_stat.average}} </mat-list-item>
+    </mat-list>
+
+</div>
