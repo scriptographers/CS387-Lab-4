@@ -6,7 +6,7 @@
 
         <ng-container matColumnDef="batsman">
             <th mat-header-cell *matHeaderCellDef> Batsman </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.batter}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.batter}} </a> </td>
         </ng-container>
 
         <ng-container matColumnDef="runs">
@@ -38,7 +38,7 @@
 
         <ng-container matColumnDef="bowler">
             <th mat-header-cell *matHeaderCellDef> Bowler </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.bowler}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.bowler}} </a> </td>
         </ng-container>
 
         <ng-container matColumnDef="balls">
@@ -71,7 +71,7 @@
 
         <ng-container matColumnDef="batsman">
             <th mat-header-cell *matHeaderCellDef> Batsman </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.batter}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.batter}} </a> </td>
         </ng-container>
 
         <ng-container matColumnDef="runs">
@@ -103,7 +103,7 @@
 
         <ng-container matColumnDef="bowler">
             <th mat-header-cell *matHeaderCellDef> Bowler </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.bowler}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.bowler}} </a> </td>
         </ng-container>
 
         <ng-container matColumnDef="balls">
@@ -194,7 +194,8 @@
 
         <ng-container matColumnDef="batsman">
             <th class="coll" mat-header-cell *matHeaderCellDef> Batsman </th>
-            <td class="coll" mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
+            <td class="coll" mat-cell *matCellDef="let element" class="tcell">
+            <a routerLink = "/players/{{element.player_id}}"> {{element.player_name}} </a> </td>
         </ng-container>
 
         <ng-container matColumnDef="runs">
@@ -218,7 +219,7 @@
 
         <ng-container matColumnDef="bowler">
             <th mat-header-cell *matHeaderCellDef> Bowler </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.player_name}} </a>  </td>
         </ng-container>
 
         <ng-container matColumnDef="wickets">
@@ -244,7 +245,7 @@
 
         <ng-container matColumnDef="batsman">
             <th mat-header-cell *matHeaderCellDef> Batsman </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.player_name}} </a>  </td>
         </ng-container>
 
         <ng-container matColumnDef="runs">
@@ -268,7 +269,7 @@
 
         <ng-container matColumnDef="bowler">
             <th mat-header-cell *matHeaderCellDef> Bowler </th>
-            <td mat-cell *matCellDef="let element" class="tcell"> {{element.player_name}} </td>
+            <td mat-cell *matCellDef="let element" class="tcell"> <a routerLink = "/players/{{element.player_id}}"> {{element.player_name}} </a>  </td>
         </ng-container>
 
         <ng-container matColumnDef="wickets">

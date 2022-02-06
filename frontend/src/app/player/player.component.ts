@@ -33,7 +33,7 @@ export class PlayerComponent implements OnInit {
   barChartDataBat: ChartData<'bar'> = {
     labels: [],
     datasets: [
-      {data: [], label: 'Runs', backgroundColor: []},
+      {data: [], label: 'Runs', backgroundColor: [], hoverBackgroundColor: 'rgba(140,150,170,0.5)'},
     ]
   };
   barChartDataBowl: ChartData<'bar'> = {
