@@ -40,44 +40,7 @@ export class MatchComponent implements OnInit {
   // Line
   lineChartType: ChartType = 'line';
   lineChartData: ChartConfiguration['data'] = {
-    datasets: [
-      {
-        data: [],
-        label: 'Innings 1',
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(0,0,0,0)',
-        pointBorderColor: 'rgba(0,0,0,0)',
-        pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
-        pointHoverBorderColor: 'rgba(140,150,170,1)',
-        fill: 'origin',
-      },
-      {
-        data: [],
-        label: 'Innings 2',
-        backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(0,0,0,0)',
-        pointBorderColor: 'rgba(0,0,0,0)',
-        pointHoverBackgroundColor: 'rgba(70,80,90,0.5)',
-        pointHoverBorderColor: 'rgba(70,80,90,1)',
-        fill: 'origin',
-      },
-      {
-        data: [],
-        label: 'Innings 1 Wickets',
-        type: 'scatter',
-        pointBackgroundColor: 'rgba(0,0,0,0)',
-        pointBorderColor: 'rgba(0,0,0,0)',
-      },
-      {
-        data: [],
-        label: 'Innings 2 Wickets',
-        type: 'scatter',
-        pointBackgroundColor: 'rgba(0,0,0,0)',
-        pointBorderColor: 'rgba(0,0,0,0)',
-      }
-    ],
+    datasets: [],
     labels: []
   };
   lineChartOptions: ChartConfiguration['options'] = {
@@ -272,9 +235,21 @@ export class MatchComponent implements OnInit {
           data.overs_breakup = res;
           var llabels = Object.keys(data.overs_breakup);
           var lruns = llabels.map(key => data.overs_breakup[key].runs);
+          var lwickets = llabels.map(key => data.overs_breakup[key].wickets);
           lruns = lruns.map((sum => value => sum += Number(value))(0));
+          lwickets = lwickets.map(val => Boolean(Number(val)));
           llabels = llabels.map(key => (Number(key) + 1).toString());
-          this.lineChartData.datasets[inn_no - 1].data = lruns;
+          this.lineChartData.datasets.push({
+            data: lruns,
+            label: `Innings ${inn_no}`,
+            backgroundColor: 'rgba(148,159,177,0.2)',
+            borderColor: 'rgba(148,159,177,1)',
+            pointBackgroundColor: lwickets.map(val => val ? 'rgba(100,0,0,1)' : 'rgba(0,0,0,0)'),
+            pointBorderColor: lwickets.map(val => val ? 'rgba(100,0,0,1)' : 'rgba(0,0,0,0)'),
+            pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
+            pointHoverBorderColor: 'rgba(140,150,170,1)',
+            fill: 'origin',
+          });
           if (!this.lineChartData.labels) {
             var ltemp = 0;
           } else {
