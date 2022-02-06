@@ -88,14 +88,14 @@ export class VenueComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/venue/venue_basic', { 'venue_id': this.venue_id }).subscribe(
+    this.server.get('/venue/basic', { 'venue_id': this.venue_id }).subscribe(
       res => {
         this.basic_info = res[0];
         console.log(this.basic_info);
       }
     );
 
-    this.server.get('/venue/venue_win', { 'venue_id': this.venue_id }).subscribe(
+    this.server.get('/venue/win_stat', { 'venue_id': this.venue_id }).subscribe(
       res => {
         this.win_info = res[0];
         var plabels = ["Team batting first won", "Team batting second won", "Matches drawn"]; // Object.keys(this.win_info);

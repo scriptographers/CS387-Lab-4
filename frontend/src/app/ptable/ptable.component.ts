@@ -13,6 +13,7 @@ export class PtableComponent implements OnInit {
   teams: any;
   data: any;
   ptable: any;
+
   displayedColumns: any;
   loading: boolean;
 
@@ -35,7 +36,7 @@ export class PtableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/ptable/team_list').subscribe(
+    this.server.get('/ptable/list').subscribe(
       res => {
         this.teams = res;
         this.load_data();

@@ -40,7 +40,7 @@ export class VenueAddComponent implements OnInit {
     const data = this.form.value;
     console.log(data);
 
-    this.server.post('/venue/venue_add', data).subscribe(
+    this.server.post('/venue/add', data).subscribe(
       res => {
         console.log(res);
         this.router.navigateByUrl('venues');

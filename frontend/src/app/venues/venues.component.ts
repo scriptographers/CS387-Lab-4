@@ -27,7 +27,7 @@ export class VenuesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/venue/venue_list').subscribe(
+    this.server.get('/venue/list').subscribe(
       res => {
         this.dataSource.data = res;
       }

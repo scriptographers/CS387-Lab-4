@@ -28,7 +28,7 @@ export class MatchesComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/match/match_list').subscribe(
+    this.server.get('/match/list').subscribe(
       res => {
         this.dataSource.data = res;
       }

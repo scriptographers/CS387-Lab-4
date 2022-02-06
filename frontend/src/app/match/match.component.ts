@@ -13,7 +13,8 @@ export class MatchComponent implements OnInit {
   match_id: number = 0;
   first: any;
   second: any;
-  match_info: any;
+  info: any;
+
   displayedColumnsBat: any;
   displayedColumnsBowl: any;
   displayedColumnsTop3Bat: any;
@@ -101,7 +102,7 @@ export class MatchComponent implements OnInit {
       runs_breakup: []
     };
 
-    this.match_info = {
+    this.info = {
       basic: [],
       players1: [],
       players2: [],
@@ -126,16 +127,16 @@ export class MatchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/match/match_info', { 'match_id': this.match_id }).subscribe(
+    this.server.get('/match/info', { 'match_id': this.match_id }).subscribe(
       res => {
-        this.match_info.basic = res[0];
+        this.info.basic = res[0];
         this.fill_team_info();
       }
     );
 
-    this.server.get('/match/match_umpires', { 'match_id': this.match_id }).subscribe(
+    this.server.get('/match/umpires', { 'match_id': this.match_id }).subscribe(
       res => {
-        this.match_info.umpires = res;
+        this.info.umpires = res;
       }
     );
 
@@ -144,25 +145,25 @@ export class MatchComponent implements OnInit {
   }
 
   load_innings(inn_no: number, data: any): void {
-    this.server.get('/innings/batting', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/bat', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.batting = res;
       }
     );
 
-    this.server.get('/innings/bowling', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/bowl', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.bowling = res;
       }
     );
 
-    this.server.get('/innings/extras', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/extras', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.extras = res[0];
       }
     );
 
-    this.server.get('/innings/overs_breakup', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/overs_breakup', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.overs_breakup = res;
         var llabels = Object.keys(data.overs_breakup);
@@ -181,19 +182,19 @@ export class MatchComponent implements OnInit {
       }
     );
 
-    this.server.get('/innings/top3_bat', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/top3_bat', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.top3_bat = res;
       }
     );
 
-    this.server.get('/innings/top3_bowl', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/top3_bowl', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.top3_bowl = res;
       }
     );
 
-    this.server.get('/innings/runs_breakup', { 'match_id': this.match_id, 'innings_id': inn_no }).subscribe(
+    this.server.get('/innings/runs_breakup', { 'match_id': this.match_id, 'innings_no': inn_no }).subscribe(
       res => {
         data.runs_breakup = res[0];
         var plabels = Object.keys(data.runs_breakup);
@@ -217,45 +218,45 @@ export class MatchComponent implements OnInit {
   }
 
   fill_team_info(): void {
-    this.server.get('/match/match_players', { 'match_id': this.match_id, 'team_id': this.match_info.basic.team1_id }).subscribe(
+    this.server.get('/match/players', { 'match_id': this.match_id, 'team_id': this.info.basic.team1_id }).subscribe(
       res => {
-        this.match_info.players1 = res;
+        this.info.players1 = res;
       }
     );
 
-    this.server.get('/match/match_players', { 'match_id': this.match_id, 'team_id': this.match_info.basic.team2_id }).subscribe(
+    this.server.get('/match/players', { 'match_id': this.match_id, 'team_id': this.info.basic.team2_id }).subscribe(
       res => {
-        this.match_info.players2 = res;
+        this.info.players2 = res;
       }
     );
 
-    if (this.match_info.basic.toss_winner_id == this.match_info.basic.team1_id) {
-      this.match_info.basic.toss_winner_name = this.match_info.basic.team1_name;
-      if (this.match_info.basic.toss_name === 'bat') {
-        this.match_info.basic.bat_first = this.match_info.basic.team1_name;
-        this.match_info.basic.bowl_first = this.match_info.basic.team2_name;
+    if (this.info.basic.toss_winner_id == this.info.basic.team1_id) {
+      this.info.basic.toss_winner_name = this.info.basic.team1_name;
+      if (this.info.basic.toss_name === 'bat') {
+        this.info.basic.bat_first = this.info.basic.team1_name;
+        this.info.basic.bowl_first = this.info.basic.team2_name;
       } else {
-        this.match_info.basic.bat_first = this.match_info.basic.team2_name;
-        this.match_info.basic.bowl_first = this.match_info.basic.team1_name;
+        this.info.basic.bat_first = this.info.basic.team2_name;
+        this.info.basic.bowl_first = this.info.basic.team1_name;
       }
     } else {
-      this.match_info.basic.toss_winner_name = this.match_info.basic.team2_name;
-      if (this.match_info.basic.toss_name === 'bat') {
-        this.match_info.basic.bat_first = this.match_info.basic.team2_name;
-        this.match_info.basic.bowl_first = this.match_info.basic.team1_name;
+      this.info.basic.toss_winner_name = this.info.basic.team2_name;
+      if (this.info.basic.toss_name === 'bat') {
+        this.info.basic.bat_first = this.info.basic.team2_name;
+        this.info.basic.bowl_first = this.info.basic.team1_name;
       } else {
-        this.match_info.basic.bat_first = this.match_info.basic.team1_name;
-        this.match_info.basic.bowl_first = this.match_info.basic.team2_name;
+        this.info.basic.bat_first = this.info.basic.team1_name;
+        this.info.basic.bowl_first = this.info.basic.team2_name;
       }
     }
 
-    if (this.match_info.basic.winner_id == this.match_info.basic.team1_id) {
-      this.match_info.basic.winner_name = this.match_info.basic.team1_name;
+    if (this.info.basic.winner_id == this.info.basic.team1_id) {
+      this.info.basic.winner_name = this.info.basic.team1_name;
     } else {
-      this.match_info.basic.winner_name = this.match_info.basic.team2_name;
+      this.info.basic.winner_name = this.info.basic.team2_name;
     }
 
-    console.log(this.match_info);
+    console.log(this.info);
     console.log(this.first);
     console.log(this.second);
   }

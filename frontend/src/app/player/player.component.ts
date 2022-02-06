@@ -61,7 +61,7 @@ export class PlayerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.server.get('/player/player_info', { 'player_id': this.player_id }).subscribe(
+    this.server.get('/player/info', { 'player_id': this.player_id }).subscribe(
       res => {
         this.basic_info = res[0];
         console.log(this.basic_info);

@@ -133,32 +133,32 @@
     <h2>Match Information</h2>
 
     <mat-list>
-        <mat-list-item> Match: {{match_info.basic.team1_name}} vs {{match_info.basic.team2_name}}, {{match_info.basic.season_year}} </mat-list-item>
+        <mat-list-item> Match: {{info.basic.team1_name}} vs {{info.basic.team2_name}}, {{info.basic.season_year}} </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item> Toss: {{match_info.basic.toss_winner_name}} won the toss and chose to {{match_info.basic.toss_name}} </mat-list-item>
+        <mat-list-item> Toss: {{info.basic.toss_winner_name}} won the toss and chose to {{info.basic.toss_name}} </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item> Venue: {{match_info.basic.venue_name}} </mat-list-item>
+        <mat-list-item> Venue: {{info.basic.venue_name}} </mat-list-item>
         <mat-divider></mat-divider>
         <mat-list-item>Umpires: &nbsp;
             <p>
-                <span *ngFor="let u of match_info.umpires; let index = index">
-                    {{u.umpire_name}}{{index == match_info.umpires.length-1 ? ' ' : ', '}}
+                <span *ngFor="let u of info.umpires; let index = index">
+                    {{u.umpire_name}}{{index == info.umpires.length-1 ? ' ' : ', '}}
                 </span>
             </p>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Playing XI of {{match_info.basic.team1_name}}: &nbsp;
+        <mat-list-item>Playing XI of {{info.basic.team1_name}}: &nbsp;
             <p>
                 <span
-                    *ngFor="let p of match_info.players1; let index = index">{{p.player_name}}{{index == match_info.players1.length-1 ? ' ' : ', '}}
+                    *ngFor="let p of info.players1; let index = index">{{p.player_name}}{{index == info.players1.length-1 ? ' ' : ', '}}
                 </span>
             </p>
         </mat-list-item>
         <mat-divider></mat-divider>
-        <mat-list-item>Playing XI of {{match_info.basic.team2_name}}: &nbsp;
+        <mat-list-item>Playing XI of {{info.basic.team2_name}}: &nbsp;
             <p>
                 <span
-                    *ngFor="let p of match_info.players2; let index = index">{{p.player_name}}{{index == match_info.players2.length-1 ? ' ' : ', '}}
+                    *ngFor="let p of info.players2; let index = index">{{p.player_name}}{{index == info.players2.length-1 ? ' ' : ', '}}
                 </span>
             </p>
         </mat-list-item>
@@ -184,7 +184,7 @@
 </div>
 <div *ngIf="show_summary" class="container">
 
-    <h2>Summary: Match ID: {{match_info.basic.match_id}}, IPL {{match_info.basic.season_year}}</h2>
+    <h2>Summary: Match ID: {{info.basic.match_id}}, IPL {{info.basic.season_year}}</h2>
 
     <h2>Team 1</h2>
 
@@ -287,7 +287,7 @@
     </table>
 
     <h3>
-        <b>{{match_info.basic.winner_name}}</b> won by <b>{{match_info.basic.win_margin}}</b> {{match_info.basic.win_type}}
+        <b>{{info.basic.winner_name}}</b> won by <b>{{info.basic.win_margin}}</b> {{info.basic.win_type}}
     </h3>
 
     <h2>Runs Breakup</h2>
