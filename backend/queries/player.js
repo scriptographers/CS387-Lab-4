@@ -1,5 +1,5 @@
 // Player Info
-const player_info = `
+const info = `
 SELECT player_name,
   country_name,
   batting_hand,
@@ -67,7 +67,7 @@ SELECT match_id,
   coalesce(sum(runs_scored), 0) AS runs_per_match
 FROM ball_by_ball
 WHERE striker = $1
-GROUP BY match_id, innings_no
+GROUP BY match_id
 ORDER BY match_id;
 `;
 
@@ -78,13 +78,13 @@ SELECT match_id,
   coalesce(sum(runs_scored + extra_runs), 0) AS runs_per_match
 FROM ball_by_ball
 WHERE bowler = $1
-GROUP BY match_id, innings_no
+GROUP BY match_id
 ORDER BY match_id;
 `;
 
 
 module.exports = {
-  player_info,
+  info,
   bat_stat,
   bowl_stat,
   bat_per_match,

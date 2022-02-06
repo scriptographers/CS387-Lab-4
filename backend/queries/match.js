@@ -1,5 +1,5 @@
-// Match List
-const match_list = `
+// List
+const list = `
 SELECT match_id,
   season_year,
   match.team1 AS team1_id,
@@ -19,8 +19,8 @@ LEFT OUTER JOIN team AS t3 ON match.match_winner = t3.team_id
 ORDER BY season_year DESC, match_id ASC
 `;
 
-// Match data
-const match_info = `
+// Info
+const info = `
 SELECT match_id,
   venue_name,
   season_year,
@@ -40,7 +40,8 @@ LEFT OUTER JOIN team AS t2 ON match.team2 = t2.team_id
 WHERE match_id = $1;
 `;
 
-const match_players = `
+// Players of each Team
+const players = `
 SELECT player_name
 FROM player_match
 LEFT OUTER JOIN player ON player_match.player_id = player.player_id
@@ -48,7 +49,8 @@ WHERE match_id = $1 AND team_id = $2
 ORDER BY player_name;
 `;
 
-const match_umpires = `
+// Umpires
+const umpires = `
 SELECT umpire_name
 FROM umpire_match
 LEFT OUTER JOIN umpire ON umpire_match.umpire_id = umpire.umpire_id
@@ -57,8 +59,8 @@ ORDER BY umpire_name;
 `;
 
 module.exports = {
-  match_list,
-  match_info,
-  match_players,
-  match_umpires,
-}
+  list,
+  info,
+  players,
+  umpires
+};

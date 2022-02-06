@@ -13,75 +13,75 @@ const handler = (res, error, results) => {
 };
 
 const match = {
-  match_list: (req, res) => {
-    pool.query(query.match.match_list, handler.bind(null, res));
+  list: (req, res) => {
+    pool.query(query.match.list, handler.bind(null, res));
   },
 
-  match_info: (req, res) => {
+  info: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    pool.query(query.match.match_info, [match_id], handler.bind(null, res));
+    pool.query(query.match.info, [match_id], handler.bind(null, res));
   },
 
-  match_players: (req, res) => {
+  players: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
     team_id = req.query['team_id'] ? parseInt(req.query['team_id']) : 0;
-    pool.query(query.match.match_players, [match_id, team_id], handler.bind(null, res));
+    pool.query(query.match.players, [match_id, team_id], handler.bind(null, res));
   },
 
-  match_umpires: (req, res) => {
+  umpires: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    pool.query(query.match.match_umpires, [match_id], handler.bind(null, res));
+    pool.query(query.match.umpires, [match_id], handler.bind(null, res));
   },
 };
 
 const innings = {
-  batting: (req, res) => {
+  bat: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.batting, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.bat, [match_id, innings_no], handler.bind(null, res));
   },
 
-  bowling: (req, res) => {
+  bowl: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.bowling, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.bowl, [match_id, innings_no], handler.bind(null, res));
   },
 
   extras: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.extras, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.extras, [match_id, innings_no], handler.bind(null, res));
   },
 
   overs_breakup: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.overs_breakup, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.overs_breakup, [match_id, innings_no], handler.bind(null, res));
   },
 
   top3_bat: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.top3_bat, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.top3_bat, [match_id, innings_no], handler.bind(null, res));
   },
 
   top3_bowl: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.top3_bowl, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.top3_bowl, [match_id, innings_no], handler.bind(null, res));
   },
 
   runs_breakup: (req, res) => {
     match_id = req.query['match_id'] ? parseInt(req.query['match_id']) : 0;
-    innings_id = req.query['innings_id'] ? parseInt(req.query['innings_id']) : 1;
-    pool.query(query.innings.runs_breakup, [match_id, innings_id], handler.bind(null, res));
+    innings_no = req.query['innings_no'] ? parseInt(req.query['innings_no']) : 1;
+    pool.query(query.innings.runs_breakup, [match_id, innings_no], handler.bind(null, res));
   }
 };
 
 const player = {
-  player_info: (req, res) => {
+  info: (req, res) => {
     player_id = req.query['player_id'] ? parseInt(req.query['player_id']) : 0;
-    pool.query(query.player.player_info, [player_id], handler.bind(null, res));
+    pool.query(query.player.info, [player_id], handler.bind(null, res));
   },
 
   bat_stat: (req, res) => {
@@ -106,8 +106,8 @@ const player = {
 };
 
 const ptable = {
-  team_list: (req, res) => {
-    pool.query(query.ptable.team_list, handler.bind(null, res));
+  list: (req, res) => {
+    pool.query(query.ptable.list, handler.bind(null, res));
   },
 
   points: (req, res) => {
@@ -124,18 +124,18 @@ const ptable = {
 };
 
 const venue = {
-  venue_list: (req, res) => {
-    pool.query(query.venue.venue_list, handler.bind(null, res));
+  list: (req, res) => {
+    pool.query(query.venue.list, handler.bind(null, res));
   },
 
-  venue_basic: (req, res) => {
+  basic: (req, res) => {
     venue_id = req.query['venue_id'] ? parseInt(req.query['venue_id']) : 0;
-    pool.query(query.venue.venue_basic, [venue_id], handler.bind(null, res));
+    pool.query(query.venue.basic, [venue_id], handler.bind(null, res));
   },
 
-  venue_win: (req, res) => {
+  win_stat: (req, res) => {
     venue_id = req.query['venue_id'] ? parseInt(req.query['venue_id']) : 0;
-    pool.query(query.venue.venue_win, [venue_id], handler.bind(null, res));
+    pool.query(query.venue.win_stat, [venue_id], handler.bind(null, res));
   },
 
   first_inn: (req, res) => {
@@ -143,12 +143,12 @@ const venue = {
     pool.query(query.venue.first_inn, [venue_id], handler.bind(null, res));
   },
 
-  venue_add: (req, res) => {
+  add: (req, res) => {
     venue_name = req.body['name'];
     city = req.body['city'];
     country = req.body['country'];
     capacity = req.body['capacity'];
-    pool.query(query.venue.venue_add, [venue_name, city, country, capacity], handler.bind(null, res));
+    pool.query(query.venue.add, [venue_name, city, country, capacity], handler.bind(null, res));
   }
 };
 
