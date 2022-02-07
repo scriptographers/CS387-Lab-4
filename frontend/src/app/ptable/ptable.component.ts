@@ -97,11 +97,11 @@ export class PtableComponent implements OnInit {
     return new Promise((resolve: any) => {
       this.server.get('/ptable/points', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
         res => {
-          this.data[team_id]['matches'] = res[0].matches;
-          this.data[team_id]['wins'] = res[0].wins;
-          this.data[team_id]['losses'] = res[0].losses;
-          this.data[team_id]['ties'] = res[0].ties;
-          this.data[team_id]['points'] = res[0].points;
+          this.data[team_id]['matches'] = Number(res[0].matches);
+          this.data[team_id]['wins'] = Number(res[0].wins);
+          this.data[team_id]['losses'] = Number(res[0].losses);
+          this.data[team_id]['ties'] = Number(res[0].ties);
+          this.data[team_id]['points'] = Number(res[0].points);
           resolve();
         }
       );
@@ -112,7 +112,7 @@ export class PtableComponent implements OnInit {
     return new Promise((resolve: any) => {
       this.server.get('/ptable/nrr', { 'season_year': this.season_year, 'team_id': team_id }).subscribe(
         res => {
-          this.data[team_id]['nrr'] = res[0].nrr;
+          this.data[team_id]['nrr'] = Number(res[0].nrr);
           resolve();
         }
       );
