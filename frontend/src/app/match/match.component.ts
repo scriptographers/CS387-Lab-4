@@ -241,13 +241,13 @@ export class MatchComponent implements OnInit {
           llabels = llabels.map(key => (Number(key) + 1).toString());
           this.lineChartData.datasets.push({
             data: lruns,
-            label: `Innings ${inn_no}`,
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
+            label: inn_no == 1 ? `Innings 1: ${this.info.basic.team1_name}` : `Innings 2: ${this.info.basic.team2_name}`,
+            backgroundColor: inn_no == 1 ? 'rgba(100,250,100,0.2)' : 'rgba(100,100,250,0.2)',
+            borderColor: inn_no == 1 ? 'rgba(100,250,100,0.2)' : 'rgba(100,100,250,0.2)',
             pointBackgroundColor: lwickets.map(val => val ? 'rgba(100,0,0,1)' : 'rgba(0,0,0,0)'),
             pointBorderColor: lwickets.map(val => val ? 'rgba(100,0,0,1)' : 'rgba(0,0,0,0)'),
-            pointHoverBackgroundColor: 'rgba(140,150,170,0.5)',
-            pointHoverBorderColor: 'rgba(140,150,170,1)',
+            pointHoverBackgroundColor: inn_no == 1 ? 'rgba(100,250,100,0.8)' : 'rgba(100,100,250,0.8)',
+            pointHoverBorderColor: inn_no == 1 ? 'rgba(100,250,100,0.8)' : 'rgba(100,100,250,0.8)',
             fill: 'origin',
           });
           if (!this.lineChartData.labels) {
