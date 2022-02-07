@@ -19,8 +19,6 @@
         <mat-list-item> Bowling skill: {{basic_info.bowling_skill}} </mat-list-item>
     </mat-list>
 
-    <mat-divider style="border-top-width: 10px;"></mat-divider>
-
     <h2>Batting Statistics</h2>
 
     <mat-list style="width: 30%">
@@ -63,8 +61,6 @@
         </canvas>
     </div>
 
-    <mat-divider style="border-top-width: 10px;"></mat-divider>
-
     <h2>Bowling Statistics</h2>
 
     <mat-list style="width: 30%">
@@ -92,7 +88,7 @@
     <h2>Wickets Taken and Runs Conceded per Match</h2>
 
     <div *ngIf="bowl_stat.total_matches == 0">
-        <h3>Hasn't batted in any match</h3>
+        <h3><i>Hasn't bowled in any match</i></h3>
     </div>
 
     <div *ngIf="bowl_stat.total_matches != 0" class="container">

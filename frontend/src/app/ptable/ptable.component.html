@@ -3,9 +3,8 @@
 </div>
 
 <div *ngIf="!loading" class="container" style="margin-top: 1%;">
-    <div class="mat-display-1">
-        <span>{{season_year}} Points Table</span>
-    </div>
+
+    <h2>Points Table for Season {{season_year}}</h2>
 
     <table mat-table [dataSource]="ptable" style="width: 70%">
 

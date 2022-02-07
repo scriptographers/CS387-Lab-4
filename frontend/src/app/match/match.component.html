@@ -152,11 +152,9 @@
         </mat-list-item>
     </mat-list>
 
-    <mat-divider style="border-top-width: 10px;"></mat-divider>
-
     <h2> Match Information </h2>
 
-    <mat-list style="width: 80%">
+    <mat-list style="width: 90%">
         <mat-list-item> Match: {{info.basic.team1_name}} vs {{info.basic.team2_name}}, {{info.basic.season_year}} </mat-list-item>
 
         <mat-divider></mat-divider>
@@ -198,8 +196,6 @@
         </mat-list-item>
     </mat-list>
 
-    <mat-divider style="border-top-width: 10px;"></mat-divider>
-
     <h2> Score Comparison </h2>
 
     <div class="container">
@@ -211,17 +207,15 @@
         </canvas>
     </div>
 
-    <mat-divider style="border-top-width: 10px;"></mat-divider>
-
-    <h2> Summary: Match ID: {{info.basic.match_id}}, IPL {{info.basic.season_year}} </h2>
+    <h2> Summary for Match ID: {{info.basic.match_id}}, IPL {{info.basic.season_year}} </h2>
 
     <h3>
         <b> {{info.basic.winner_name}} </b> won by <b> {{info.basic.win_margin}} </b> {{info.basic.win_type}}
     </h3>
 
-    <h2> Team 1: {{info.basic.team1_name}} </h2>
+    <h3> Team 1: {{info.basic.team1_name}} </h3>
 
-    <h3> Top Batsmen </h3>
+    <h4> Top Batsmen </h4>
 
     <table mat-table [dataSource]="first.top3_bat" style="width: 40%">
 
@@ -247,7 +241,7 @@
 
     </table>
 
-    <h3> Top Bowlers </h3>
+    <h4> Top Bowlers </h4>
 
     <table mat-table [dataSource]="first.top3_bowl" style="width: 40%">
 
@@ -273,9 +267,9 @@
 
     </table>
 
-    <h2> Team 2: {{info.basic.team2_name}} </h2>
+    <h3> Team 2: {{info.basic.team2_name}} </h3>
 
-    <h3> Top Batsmen </h3>
+    <h4> Top Batsmen </h4>
 
     <table mat-table [dataSource]="second.top3_bat" style="width: 40%">
 
@@ -301,7 +295,7 @@
 
     </table>
 
-    <h3> Top Bowlers </h3>
+    <h4> Top Bowlers </h4>
 
     <table mat-table [dataSource]="second.top3_bowl" style="width: 40%">
 
@@ -326,8 +320,6 @@
         <tr mat-row *matRowDef="let row; columns: displayedColumnsTop3Bowl;"></tr>
 
     </table>
-
-    <mat-divider style="border-top-width: 10px;"></mat-divider>
 
     <h2> Runs Breakup </h2>
 
